@@ -9,5 +9,5 @@ website for the lgm 2015
   - registration
   - reimbursement
 - program as custom post type based on the CfP in formidable
-- multilanguage (if needed)
-- 
+- multilangual (if needed)
+- ...
