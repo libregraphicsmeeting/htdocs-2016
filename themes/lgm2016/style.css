@@ -1,0 +1,12 @@
+/*
+Theme Name:     LGM 2016
+Description:    LGM 2016 Child Theme, based on the TwentySixteen WordPress theme
+Author:         LGM Infrastructure Team
+Author URI: http://libregraphicsmeeting.org/lgm/about/organization-team/
+Template:       twentysixteen
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+*/
+
+@import '../twentysixteen/style.css';
+
