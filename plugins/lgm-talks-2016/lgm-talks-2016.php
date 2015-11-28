@@ -20,8 +20,9 @@ What this plugin does:
  */
  
  // Custom Post Types
- include_once (plugin_dir_path(__FILE__).'lgm-custom-post-types.php');
+  include_once (plugin_dir_path(__FILE__).'lgm-custom-post-types.php');
  
  
  // User Roles
- include_once (plugin_dir_path(__FILE__).'lgm-user-roles.php');
+ // include_once (plugin_dir_path(__FILE__).'lgm-user-roles.php');
+ 
