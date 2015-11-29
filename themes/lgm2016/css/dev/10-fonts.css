@@ -1,0 +1,75 @@
+/* @override 
+	http://libregraphicsmeeting.org/2016/wp/wp-content/themes/lgm2016/css/dev/10-fonts.css */
+
+/* Body Text */
+
+/* DejaVu Sans Book */
+
+@font-face {
+    font-family: 'dejavu-sans';
+    src: url('../../fonts/dejavu-sans/book.eot');
+    src: url('../../fonts/dejavu-sans/book.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/dejavu-sans/book.woff2') format('woff2'),
+         url('../../fonts/dejavu-sans/book.woff') format('woff'),
+         url('../../fonts/dejavu-sans/book.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* DejaVu Sans Bold */
+
+@font-face {
+    font-family: 'dejavu-sans';
+    src: url('../../fonts/dejavu-sans/bold.eot');
+    src: url('../../fonts/dejavu-sans/bold.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/dejavu-sans/bold.woff') format('woff'),
+         url('../../fonts/dejavu-sans/bold.ttf') format('truetype'),
+         url('../../fonts/dejavu-sans/bold.svg#dejavu_sansoblique') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* DejaVu Sans Oblique */
+
+@font-face {
+    font-family: 'dejavu-sans';
+    src: url('../../fonts/dejavu-sans/oblique.eot');
+    src: url('../../fonts/dejavu-sans/oblique.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/dejavu-sans/oblique.woff2') format('woff2'),
+         url('../../fonts/dejavu-sans/oblique.woff') format('woff'),
+         url('../../fonts/dejavu-sans/oblique.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+
+
+/* OSP-DIN for Titles */
+
+@font-face {
+    font-family: 'osp-din';
+    src: url('../../fonts/osp-din/medium.eot');
+    src: url('../../fonts/osp-din/medium.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/osp-din/medium.woff') format('woff'),
+         url('../../fonts/osp-din/medium.ttf') format('truetype'),
+         url('../../fonts/osp-din/medium.svg#dejavu_sansoblique') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+
+body, button, input, select, textarea,
+.entry-footer,
+.main-navigation {
+  font-family: dejavu-sans, sans-serif;
+}
+
+.site-title,
+.entry-title,
+.widget .widget-title {
+	font-family: osp-din, dejavu-sans, sans-serif;
+	font-weight: normal;
+	letter-spacing: 0.06em;
+}
