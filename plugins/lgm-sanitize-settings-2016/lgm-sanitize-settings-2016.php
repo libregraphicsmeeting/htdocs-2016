@@ -44,6 +44,24 @@ function custom_upload_mimes ( $existing_mimes=array() ) {
 
 
 
+/**
+ * remove WordPress Howdy
+ * http://www.redbridgenet.com/?p=653
+ ******************************/
+function goodbye_howdy( $wp_admin_bar ) {
+	$avatar = get_avatar( get_current_user_id(), 16 );
+	if ( ! $wp_admin_bar->get_node( 'my-account' ) ) {
+		return;
+	}
+	$wp_admin_bar->add_node( array(
+			'id'    => 'my-account',
+			'title' => sprintf( '%s', wp_get_current_user()->display_name ) . $avatar,
+	) );
+}
+
+add_action( 'admin_bar_menu', 'goodbye_howdy' );
+
+
 
 /*
  * File Upload Security
@@ -86,6 +104,11 @@ function lgm_remove_dashboard_widgets() {
 
 	// RSS feeds:
 	unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_primary'] );
+	
+	if ( current_user_can( 'speaker' ) ) {
+		unset( $wp_meta_boxes['dashboard']['side']['core']['dashboard_quick_press'] );
+		unset( $wp_meta_boxes['dashboard']['normal']['core']['dashboard_activity'] );
+	}
 
 }
 add_action( 'wp_dashboard_setup', 'lgm_remove_dashboard_widgets' );

@@ -72,7 +72,13 @@ function lgm_register_post_types() {
 			 		),
 			 		'public' => true,
 			 		'show_admin_column' => true,
-			 		'singular_label' => 'Talk Status'
+			 		'singular_label' => 'Talk Status',
+			 		'capabilities'=>array(
+			 		     'manage_terms' => 'manage_categories',//or some other capability your clients don't have
+			 		     'edit_terms' => 'manage_categories',
+			 		     'delete_terms' => 'manage_categories',
+			 		     'assign_terms' =>'manage_categories'
+			 			  ),
 			 		) 
 		);	
 
@@ -104,10 +110,19 @@ function lgm_register_post_types() {
 			 		),
 			 		'public' => true,
 			 		'show_admin_column' => true,
-			 		'singular_label' => 'Room'
+			 		'singular_label' => 'Room',
+			 		'capabilities'=>array(
+	 		        'manage_terms' => 'manage_categories',//or some other capability your clients don't have
+	 		        'edit_terms' => 'manage_categories',
+	 		        'delete_terms' => 'manage_categories',
+	 		        'assign_terms' =>'manage_categories'
+			 		  ),
 			 		) 
 		);	
 	
 }
 
 add_action( 'init', 'lgm_register_post_types' );	
+
+
+

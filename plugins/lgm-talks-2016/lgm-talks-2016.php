@@ -24,5 +24,5 @@ What this plugin does:
  
  
  // User Roles
- // include_once (plugin_dir_path(__FILE__).'lgm-user-roles.php');
+  include_once (plugin_dir_path(__FILE__).'lgm-user-roles.php');
  
