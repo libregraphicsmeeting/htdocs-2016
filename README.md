@@ -6,7 +6,7 @@ website for the lgm 2015
 
 **design:** this folder contains visual assets (logo, website specification).
 
-**themes/lgm2016:** this folder contains the lgm2016 WordPress theme.
+**themes/lgm2016:** this folder contains the lgm2016 WordPress theme. see [the theme README file](themes/lgm2016/README.md) for details.
 
 **plugins/lgm-talks-2016:** a custom plugin to facilitate talk submission system. see [the plugin README file](plugins/lgm-talks-2016/README.md) for details.
 
@@ -26,13 +26,14 @@ website for the lgm 2015
 
 The people who are helping to build the website:
 
-- Larisa Blazic, London, main LGM 2016 organiser, lecturer at University of Westminster
-- Phillip Langley
-- Alice Pugini, student, University of Westminster
-- Ashley Smith, student, University of Westminster
-- John Perez, student, University of Westminster
-- Manuel Schmalstieg, Neuchâtel, LGM infrastructure team
-- Ale Rimoldi, Zurich, LGM infrastructure team
+- [Larisa Blazic](https://github.com/barbarogenius), London, LGM 2016 organiser, lecturer at University of Westminster
+- [Phillip Langley](https://github.com/phiLangley), London, architect, PhD candidate at Sheffield University
+- [Alice Pugini](https://github.com/Alicepugini), student, University of Westminster
+- [Ashley Smith](https://github.com/ashsmith27), student, University of Westminster
+- [John Perez](https://github.com/jperezgraphics), student, University of Westminster
+- [Loraine Furter](https://github.com/furter), Bruxelles
+- [Manuel Schmalstieg](https://github.com/ms-studio), Neuchâtel, LGM infrastructure team
+- [Ale Rimoldi](https://github.com/aoloe), Zurich, LGM infrastructure team
 
 ## licensing
 
