@@ -1,0 +1,81 @@
+/* @override 
+	http://libregraphicsmeeting.org/2016/wp/wp-content/themes/lgm2016/css/dev/25-forms.css */
+
+/* Overrides for Formidable plugin styles */
+
+#main .frm_style_formidable-style.with_frm_style p.description, 
+#main .frm_style_formidable-style.with_frm_style div.description, 
+#main .frm_style_formidable-style.with_frm_style div.frm_description, 
+#main .frm_style_formidable-style.with_frm_style .frm-show-form > div.frm_description, 
+#main .frm_style_formidable-style.with_frm_style .frm_error
+{
+	font-family: dejavu-sans, sans-serif;
+}
+
+#main .frm_style_formidable-style.with_frm_style label.frm_primary_label, 
+#main .frm_style_formidable-style.with_frm_style.frm_login_form label {
+	font-family: osp-din, dejavu-sans, sans-serif;
+	font-weight: normal;
+	font-size: 140%;
+	letter-spacing: 0.06em;
+	line-height: 1.4;
+}
+
+#main .frm_style_formidable-style.with_frm_style input[type=submit], 
+#main .frm_style_formidable-style.with_frm_style .frm_submit input[type=button], 
+#main .frm_form_submit_style, 
+#main .frm_style_formidable-style.with_frm_style.frm_login_form input[type=submit]
+{
+	font-family: osp-din, dejavu-sans, sans-serif;
+	font-weight: normal;
+	letter-spacing: 0.06em;
+	font-size: 200%;
+	text-transform: capitalize;
+}
+
+#main .frm_style_formidable-style.with_frm_style .frm_error {
+	font-weight: normal;
+	font-style: italic;
+	margin-top: 0.5em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
+}
+
+#main .frm_style_formidable-style.with_frm_style div.frm_description {
+	margin-top: 0.7em;
+	padding-left: 1em;
+	padding-right: 1em;
+	line-height: 1.4;
+}
+
+#main .frm_style_formidable-style.with_frm_style .frm_required {
+	color: #e238c7;
+	color: #12a16d;
+}
+
+/* Green For Success */
+#main .frm_style_formidable-style.with_frm_style .frm_message, 
+#main .frm_success_style {
+	border: 1px solid #D6E9C6;
+	background-color: #9ff4d5;
+	color: #12a16d;
+}
+
+/* Focus Color */
+
+#main .frm_style_formidable-style.with_frm_style .form-field input:not([type=file]):focus, 
+#main .frm_style_formidable-style.with_frm_style select:focus, 
+#main .frm_style_formidable-style.with_frm_style textarea:focus, 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=text], 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=password], 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=email], 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=number], 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=url], 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=tel], 
+#main .frm_style_formidable-style.with_frm_style .frm_focus_field input[type=search], 
+#main .frm_form_fields_active_style, 
+#main .frm_style_formidable-style.with_frm_style .chosen-container-active .chosen-choices
+{
+	border-color: #12a16d;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(66,177,134, 0.6);
+}
