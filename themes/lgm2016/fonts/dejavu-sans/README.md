@@ -4,6 +4,8 @@ This folder contains a version of Dejavu-Sans, generated via http://www.fontsqui
 
 The sources are DejaVu version 2.35, obtained from dejavu-fonts.org
 
+## About the font
+
 For more info, see:
 
 * http://dejavu-fonts.org/
