@@ -26,3 +26,7 @@ What this plugin does:
  // User Roles
   include_once (plugin_dir_path(__FILE__).'lgm-user-roles.php');
  
+// Other Stuff
+
+// Settings for Minimalistic Event Manager Plugin:
+

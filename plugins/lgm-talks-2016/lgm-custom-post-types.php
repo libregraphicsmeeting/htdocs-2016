@@ -38,7 +38,7 @@ function lgm_register_post_types() {
 		  	'custom-fields',
 		  	'publicize',
 		  	),
-		  	'taxonomies' => array( 'talk-status', 'post_tag' ),
+		  	'taxonomies' => array( 'talk-status', 'talk-format', 'room',  'post_tag' ),
 		  	'has_archive'		 => true,
 		);
 		register_post_type( 'talk', $args );
@@ -81,6 +81,45 @@ function lgm_register_post_types() {
 			 			  ),
 			 		) 
 		);	
+
+// Add a "Format" taxonomy
+
+		register_taxonomy( 
+					'talk-format',
+					array( 'talk' ), // = $object_type
+					array( 
+			 		'hierarchical' => true, 
+			 		'label' => 'Format',
+			 		'labels'  => array(
+			 			'name'                => 'Formats',
+			 			'singular_name'       => 'Format',
+			 			'search_items'        => __( 'Search' ),
+			 			'popular_items'              => __( 'Most used' ),
+			 					'all_items'                  => __( 'All' ),
+			 					'parent_item'                => null,
+			 					'parent_item_colon'          => null,
+			 					'edit_item'                  => __( 'Edit Format' ),
+			 					'update_item'                => __( 'Update Format' ),
+			 					'add_new_item'               => __( 'New Format' ),
+			 					'new_item_name'              => __( 'New Format' ),
+			 					'separate_items_with_commas' => __( 'Separage with commas' ),
+			 					'add_or_remove_items'        => __( 'Add or remove' ),
+			 					'choose_from_most_used'      => __( 'Choose from most used' ),
+			 					'not_found'                  => __( 'No Format found' ),
+			 			'menu_name'           => __( 'Talk Format' )
+			 		),
+			 		'public' => true,
+			 		'show_admin_column' => true,
+			 		'singular_label' => 'Format',
+			 		'capabilities'=>array(
+	 		        'manage_terms' => 'manage_categories',//or some other capability your clients don't have
+	 		        'edit_terms' => 'manage_categories',
+	 		        'delete_terms' => 'manage_categories',
+	 		        'assign_terms' =>'manage_categories'
+			 		  ),
+			 		) 
+		);	
+
 
 // Add a "Room" taxonomy
 
