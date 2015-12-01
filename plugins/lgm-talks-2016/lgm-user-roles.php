@@ -69,6 +69,13 @@
 /* Edit screen improvements (for speakers)
 ******************************/
 
+function remove_media_button_speakers(){
+    if ( current_user_can( 'speaker' ) ) {
+        remove_action( 'media_buttons', 'media_buttons' );
+    }
+}
+add_action('admin_head', 'remove_media_button_speakers');
+
 function remove_edit_fields() {
 
 if ( current_user_can( 'speaker' ) ) {
@@ -80,10 +87,12 @@ if ( current_user_can( 'speaker' ) ) {
 			/* Tags */
 			// remove_meta_box( 'tagsdiv-post_tag', 'talk', 'side' );
 			
+			remove_meta_box( 'mem', 'talk', 'side' );
+			
 			remove_meta_box( 'talk-statusdiv', 'talk', 'side' );
 			remove_meta_box( 'roomdiv', 'talk', 'side' );
 			
-			remove_meta_box( 'postcustom', 'talk', 'normal' );
+			remove_meta_box( 'postimagediv', 'talk', 'side' );
 	}
 }
 
@@ -96,6 +105,15 @@ add_action( 'add_meta_boxes', 'remove_edit_fields' );
  ****************
  * http://codex.wordpress.org/Function_Reference/remove_menu_page
  */
+
+
+function init_remove_support(){
+  if ( current_user_can( 'speaker' ) ) {
+    // remove_post_type_support( 'talk', 'editor');
+    add_filter( 'user_can_richedit' , '__return_false', 50 );
+  }
+}
+add_action('init', 'init_remove_support',100);
 
 
 function lgm_remove_menus() {
