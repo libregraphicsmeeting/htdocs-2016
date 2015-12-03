@@ -18,6 +18,10 @@ The following [custom fields](https://codex.wordpress.org/Custom_Fields) are bei
 * Title = title field
 * Summary of your presentation ( = main content field)
 
+* Speaker email: lgm_speaker_email
+* Speaker first name: lgm_speaker_firstname
+* Speaker last name: lgm_speaker_lastname
+
 * Additional speakers = lgm_additional_speakers
 * Short biography = lgm_short_bio
 * Website = lgm_speaker_website
