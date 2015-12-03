@@ -129,6 +129,11 @@ function lgm_remove_menus() {
 add_action( 'admin_menu', 'lgm_remove_menus', 999);
 
 
+/**
+ * Remove Items from the Admin Bar
+ ****************
+ */
+
 function lgm_admin_bar_render() {
     
     if ( current_user_can( 'speaker' ) ) {
@@ -139,7 +144,24 @@ function lgm_admin_bar_render() {
 }
 add_action( 'wp_before_admin_bar_render', 'lgm_admin_bar_render' );
 
+/**
+ * Acually, hide the whole Admin Bar
+ ****************
+ */
 
+
+function lgm_remove_admin_bar() {
+	if ( current_user_can('speaker') && !is_admin() ) {
+  	show_admin_bar(false);
+	}
+}
+add_action('after_setup_theme', 'lgm_remove_admin_bar');
+
+
+/**
+ * Remove Talk Status from column view
+ ****************
+ */
 
 function lgm_manage_columns( $columns ) {
 		if ( current_user_can( 'speaker' ) ) {
@@ -148,6 +170,11 @@ function lgm_manage_columns( $columns ) {
 		}
 		return $columns;
 }
+
+/**
+ * Show only talks that belong to Speaker
+ ****************
+ */
 
 function lgm_restrict_talk_view( $views ) {
 		if ( current_user_can( 'speaker' ) ) {
