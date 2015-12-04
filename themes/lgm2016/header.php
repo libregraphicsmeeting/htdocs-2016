@@ -23,6 +23,7 @@
 
 <body <?php body_class(); ?>>
 <div id="page" class="site">
+	<div id="banner" class="site-banner"></div>
 	<div class="site-inner">
 		<a class="skip-link screen-reader-text" href="#content"><?php _e( 'Skip to content', 'twentysixteen' ); ?></a>
 

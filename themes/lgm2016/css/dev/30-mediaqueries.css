@@ -26,6 +26,10 @@
 		body:not(.search-results) article:not(.type-page) .entry-content {
 				float: left;
 			}
-			
+
+		.site-header {
+				padding-bottom: 1.5em;
+			}	
 			
 }
+

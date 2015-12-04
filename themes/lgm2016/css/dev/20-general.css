@@ -3,7 +3,7 @@
 
 /* Body Background */
 
-body {
+html {
 
 /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#12a16d+0,e238c7+100 */
 background: #12a16d; /* Old browsers */
@@ -14,6 +14,45 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#12a16d', end
 	
 }
 
+html {
+	background-image: url('http://libregraphicsmeeting.org/2016/wp/wp-content/design/website/background/GIMP-glitch-background-v3.jpg');
+	background-size: 100% auto;
+}
+
+body {
+/*	background: none;
+	background-size: cover;*/
+
+	background-image: url('http://libregraphicsmeeting.org/2016/wp/wp-content/design/website/background/GIMP-glitch-background-v2.jpg');
+	background-size: 100% auto;
+	background-attachment: fixed;
+}
+
+.site {
+	background-color: transparent ;
+	border-top: 0px;
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+.site-banner {
+	background-color: transparent;
+	padding-top: 300px;
+	background-image: url('http://libregraphicsmeeting.org/2016/wp/wp-content/design/website/banner/Webbanner.png');
+	background-size: 100% auto;
+	padding-top: 28%;
+}
+.site-inner .site-header {
+	margin-top: 0px;
+	padding-top: 0px;
+}
+
+.site-header,
+.site-header-main,
+.site-content,
+.site-footer {
+	background-color: #fff;
+}
 /* Permalink colors */
 
 a {
