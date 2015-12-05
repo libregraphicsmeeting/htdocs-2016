@@ -68,7 +68,9 @@ body, button, input, select, textarea,
 
 .site-title,
 .entry-title,
-.widget .widget-title {
+.widget .widget-title,
+.entry-content h1,
+.entry-content h2 {
 	font-family: osp-din, dejavu-sans, sans-serif;
 	font-weight: normal;
 	letter-spacing: 0.06em;
