@@ -1,6 +1,6 @@
 # htdocs-2016
 
-website for the lgm 2015
+Website for Libre Graphics Meeting 2016
 
 ## components
 
