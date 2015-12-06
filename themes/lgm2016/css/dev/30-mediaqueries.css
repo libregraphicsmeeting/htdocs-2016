@@ -1,9 +1,40 @@
 /* @override 
-	http://libregraphicsmeeting.org/2016/wp/wp-content/themes/lgm2016/css/dev/30-mediaqueries.css */
+	http://libregraphicsmeeting.org/2016/wp/wp-content/themes/lgm2016/css/dev/30-mediaqueries.css
+	http://lgm2016.4o4.ch/wp/wp-content/themes/lgm2016/css/dev/30-mediaqueries.css */
+
+/**
+ * 14.1 - >= 710px
+ */
+
+@media screen and (min-width: 44.375em) {
+
+	.site {
+		max-width: 40em;
+	}
+	
+}
 
 
+/**
+ * 14.3 - >= 910px
+ */
+
+@media screen and (min-width: 56.875em) {
+	.site {
+		max-width: 50em;
+	}
+}
+
+/**
+ * 14.4 - >= 985px
+ */
+ 
 @media screen and (min-width: 61.5625em) {
-
+	
+	.site {
+		max-width: 55em;
+	}
+	
 	.entry-title {
 			font-size: 40px;
 			font-size: 2.5rem;
@@ -32,4 +63,19 @@
 			}	
 			
 }
+
+/**
+ * 14.5 - >= 1200px
+ */
+
+@media screen and (min-width: 75em) {
+	
+	.site {
+		max-width: 75em;
+	}
+	
+}
+
+
+
 

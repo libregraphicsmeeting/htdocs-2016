@@ -1,7 +1,10 @@
 /* @override 
-	http://libregraphicsmeeting.org/2016/wp/wp-content/themes/lgm2016/css/dev/20-general.css */
+	http://libregraphicsmeeting.org/2016/wp/wp-content/themes/lgm2016/css/dev/20-general.css
+	http://lgm2016.4o4.ch/wp/wp-content/themes/lgm2016/css/dev/20-general.css */
 
 /* Body Background */
+
+/* @group Background Styles */
 
 html {
 
@@ -53,13 +56,27 @@ body {
 .site-footer {
 	background-color: #fff;
 }
-/* Link colors */
+
+/* reduce width */
+
+.site {
+	max-width: 1120px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+/* @end */
+
+/* @group Link Colors */
 
 a {
 	color: #12a16d;
 }
 
-/* Site Header */
+/* @end */
+
+/* @group Site Header */
 
 .site-title {
 	font-weight: normal;
@@ -87,3 +104,5 @@ a {
 .logotype-hyphen {
 	display: none;
 }
+
+/* @end */
