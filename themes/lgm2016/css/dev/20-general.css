@@ -36,7 +36,25 @@ body {
 	border-top: 0px;
 	margin-top: 0px;
 	padding-top: 0px;
+
+/* reduce width */
+
+	max-width: 1120px;
+	margin-left: auto;
+	margin-right: auto;
 }
+
+/* @end */
+
+/* @group Link Colors */
+
+a {
+	color: #12a16d;
+}
+
+/* @end */
+
+/* @group Site Header */
 
 .site-banner {
 	background-color: transparent;
@@ -57,25 +75,6 @@ body {
 	background-color: #fff;
 }
 
-/* reduce width */
-
-.site {
-	max-width: 1120px;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* @end */
-
-/* @group Link Colors */
-
-a {
-	color: #12a16d;
-}
-
-/* @end */
-
-/* @group Site Header */
 
 .site-title {
 	font-weight: normal;
