@@ -20,9 +20,17 @@
  */
 
 @media screen and (min-width: 56.875em) {
+
 	.site {
 		max-width: 50em;
 	}
+	
+	.primary-full {
+	    float: none;
+	    margin-right: 0%;
+	    width: 100%;
+	}
+	
 }
 
 /**
