@@ -7,13 +7,6 @@
 get_header(); ?>
 
 <style>
-        .pending-accept {
-            color:green;
-        }
-        .pending-reject {
-            color:red;
-        }
-
         .pending-list-item[data-state="pending"] {
             color:inherit;
         }

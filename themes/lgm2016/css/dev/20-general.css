@@ -335,6 +335,13 @@ table th[class*="col-"] {
 }
 
 .pending-accept {
+    color:green;
+}
+.pending-reject {
+    color:red;
+}
+
+.pending-accept {
 	border-color: #00c42a;
 	background: #d1ffe2;
 }
