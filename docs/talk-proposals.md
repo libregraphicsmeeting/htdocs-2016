@@ -16,6 +16,14 @@ What happens when a talk proposal gets submitted:
 
 Those actions are defined under *Formidable > Forms > "LGM 2016 Proposal Submissions" > Settings > Form Actions*
 
+## Talk Review page
+
+An admin-only page has been created: 
+
+http://libregraphicsmeeting.org/2016/submissions-review/
+
+The template is [page-submissions-review.php](../themes/lgm2016/page-submissions-review).
+
 ## User account creation
 
 The user accounts for Speakers will get created at a later step. Some methods we could use:
