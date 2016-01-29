@@ -37,5 +37,6 @@ http://wordpress.stackexchange.com/questions/19735/how-can-i-set-the-post-author
 Send custom notifications:
 https://codex.wordpress.org/Function_Reference/wp_mail 
 
+https://codex.wordpress.org/Function_Reference/wp_new_user_notification
 
 
