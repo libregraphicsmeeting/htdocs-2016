@@ -24,62 +24,10 @@
 				<script src='<?php echo $fullcal ?>/lib/jquery-ui.custom.min.js'></script>
 				<script src='<?php echo $fullcal ?>/fullcalendar.min.js'></script>
 				
+				<!-- and our custom script -->
+				<script src='<?php echo get_stylesheet_directory_uri() ?>/js/schedule-builder.js'></script>
+				
     </head>
-    <script>
-    
-    	$(document).ready(function() {
-    
-    
-    		/* initialize the external events
-    		-----------------------------------------------------------------*/
-    
-    		$('#external-events .fc-event').each(function() {
-    
-    			// store data so the calendar knows to render an event upon drop
-    			$(this).data('event', {
-    				title: $.trim($(this).text()), // use the element's text as the event title
-    				stick: true // maintain when user navigates (see docs on the renderEvent method)
-    			});
-    
-    			// make the event draggable using jQuery UI
-    			$(this).draggable({
-    				zIndex: 999,
-    				revert: true,      // will cause the event to go back to its
-    				revertDuration: 0  //  original position after the drag
-    			});
-    
-    		});
-    
-    
-    		/* initialize the calendar
-    		-----------------------------------------------------------------*/
-    
-    		$('#calendar').fullCalendar({
-    			header: {
-    				left: 'prev,next today',
-    				center: 'title',
-    				right: 'agendaDay'
-    			},
-    			editable: true,
-    			droppable: true, // this allows things to be dropped onto the calendar
-    			
-    			// LGM Custom Settings:
-    			timeFormat: 'H(:mm)',
-    			defaultView: 'agendaDay',
-    			slotDuration: '00:10:00',
-    			defaultTimedEventDuration: '00:20:00',
-    			defaultDate: '2016-04-15',
-    			// end LGM custom settings
-    			
-    			drop: function() {
-    					$(this).remove();
-    			}
-    		});
-    
-    
-    	});
-    
-    </script>
     <style>
     
     	body {
@@ -143,6 +91,42 @@
     			<div class='fc-event'>My Event 3</div>
     			<div class='fc-event'>My Event 4</div>
     			<div class='fc-event'>My Event 5</div>
+    			<?php 
+    			
+    			 // load events for LGM day 1
+    			 
+    			 $custom_query = new WP_Query( array(
+   					 	'post_type' => 'talk',
+   					 	'post_status' => 'any',
+   					 	'posts_per_page' => -1,
+   					 	'orderby' => 'date',
+   					 	'order' => 'ASC',
+   					) ); 
+   					
+   				$list_of_talks = array();
+   				
+   					 
+   				/* Method:
+   				1: we load all events
+   				2: events that have a start date are not shown
+   				3: events are added to appropriate array, depending of day
+    			4: markup is generated
+    			*/
+    			
+    			if ($custom_query->have_posts()) : 
+    			
+    				while( $custom_query->have_posts() ) : $custom_query->the_post();
+    					
+    					// do we have a start date?
+    					
+    					
+    					
+    				endwhile;
+    				 
+    			endif;
+    			wp_reset_postdata();
+    			
+    			 ?>
     			
     		</div>
     
