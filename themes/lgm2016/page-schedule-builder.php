@@ -86,11 +86,6 @@
     
     		<div id='external-events'>
     			<h4>Draggable Events</h4>
-    			<div class='fc-event'>My Event 1</div>
-    			<div class='fc-event'>My Event 2</div>
-    			<div class='fc-event'>My Event 3</div>
-    			<div class='fc-event'>My Event 4</div>
-    			<div class='fc-event'>My Event 5</div>
     			<?php 
     			
     			 // load events for LGM day 1
@@ -174,34 +169,41 @@
     				return $cal_item_markup;
     			}
     			
+    			if ( !empty($list_of_talks["Thursday"]) ) {
+    			  echo '<h5>Thursday</h5>';
+    					foreach ($list_of_talks["Thursday"] as $key => $item) {
+    							echo lgm_cal_item_markup( $item );
+    					}
+    			}
+    			
     			if ( !empty($list_of_talks["Friday"]) ) {
-    			  echo '<p>FRIDAY</p>';
+    			  echo '<h5>Friday</h5>';
     					foreach ($list_of_talks["Friday"] as $key => $item) {
     							echo lgm_cal_item_markup( $item );
     					}
     			}
     			
+    			if ( !empty($list_of_talks["Saturday"]) ) {
+    			  echo '<h5>Saturday</h5>';
+    					foreach ($list_of_talks["Saturday"] as $key => $item) {
+    							echo lgm_cal_item_markup( $item );
+    					}
+    			}
+    			
     			if ( !empty($list_of_talks["Sunday"]) ) {
-    			  echo '<p>FRIDAY</p>';
+    			  echo '<h5>Sunday</h5>';
     					foreach ($list_of_talks["Sunday"] as $key => $item) {
     							echo lgm_cal_item_markup( $item );
-    							
     					}
     			}
     			
     			if ( !empty($list_of_talks["Other"]) ) {
-    			  echo '<p>FRIDAY</p>';
+    			  echo '<h5>OTHERS</h5>';
     					foreach ($list_of_talks["Other"] as $key => $item) {
     							echo lgm_cal_item_markup( $item );
-    							
     					}
     			}
-    			
-    			
-    			// Friday
-    			// Sunday
-    			// All the rest:
-    			
+
     			 ?>
     			
     		</div>
