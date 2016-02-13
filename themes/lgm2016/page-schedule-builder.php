@@ -279,6 +279,10 @@ wp_reset_postdata();
     		float: right;
     		width: 900px;
     	}
+    	
+    	.save-button {
+    		margin-top: 1em;
+    	}
 
     
     </style>
@@ -286,7 +290,7 @@ wp_reset_postdata();
     	<div id='wrap'>
     
     		<div id='external-events'>
-                <form name = "scheduleBuilderSave"><button name="save">save</button></form>
+                <form name = "scheduleBuilderSave"><button name="save" class="save-button">save</button></form>
     			<h4>Draggable Events</h4>
     			<?php 
     			// generate the markup...
