@@ -319,7 +319,7 @@
     			}
     			
     			if ( !empty($talks_unscheduled["Other"]) ) {
-    			  echo '<h5>OTHERS</h5>';
+    			  echo '<h5>Others</h5>';
     					foreach ($talks_unscheduled["Other"] as $key => $item) {
     							echo lgm_cal_item_markup( $item );
     					}
