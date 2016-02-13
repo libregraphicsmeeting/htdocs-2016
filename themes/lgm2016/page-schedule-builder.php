@@ -2,54 +2,8 @@
 /**
  * Template for building the schedule
  */
- 
+
 $fullcal = get_stylesheet_directory_uri().'/lib/fullcalendar/';
-
-add_action('init', function () {
-
-    // Register AJAX handlers
-
-    add_action('wp_ajax_save_schedule_builder_event', 'save_schedule_builder_event');
-    add_action('wp_ajax_nopriv_save_schedule_builder_event', 'save_schedule_builder_event');
-
-    // AJAX handler (PRIV / NO PRIV)
-
-    function save_schedule_builder_event()
-    {
-        if( empty ($_POST['action']) || $_POST['action'] !== 'save_schedule_builder_event') {
-            if (!empty ($fail_message)) {
-                wp_send_json_error(array(
-                    'message' => "Sorry!"
-                )); // die
-            }
-        }
-
-        $data = $_POST['data'];
-        
-        if ( !empty($data) ) {
-        
-                /*
-                wp_set_object_terms( 
-                  $id, // ID of the selected talk, submitted by form
-                  $state, // term: "accepted", submitted by form
-                  'talk-status', // $taxonomy, 
-                  false // $append 
-                );
-                */
-        
-        }
-
-        /*
-        wp_send_json_success(array(
-            'action' => $_POST['action'],
-            'message' => 'State Was Set To ' . $state,
-            'state' => $state,
-            'ID' => $id
-        )); // die
-        */
-    }
-    
-});
  
 function lgm_cal_item_markup( $item ) {
 
@@ -80,13 +34,13 @@ function lgm_cal_events_json($list) {
 
 // Generate content
 
-$custom_query = new WP_Query( array(
-            'post_type' => 'talk',
-            'post_status' => 'any',
-            'posts_per_page' => -1,
-            'orderby' => 'date',
-            'order' => 'ASC',
-            ) ); 
+$custom_query = new WP_Query(array(
+    'post_type' => 'talk',
+    'post_status' => 'any',
+    'posts_per_page' => -1,
+    'orderby' => 'date',
+    'order' => 'ASC',
+));
 
 $talks_scheduled = array();
 $talks_unscheduled = array(
@@ -96,24 +50,23 @@ $talks_unscheduled = array(
     'Sunday' => [],
     'Other' => [],
 );
-            
-/* Method:
-    
+
+/**
     1: we load all events
     2: events that have a start date are not shown
     3: events are added to appropriate array, depending of day
     4: markup is generated
-*/
+ */
      			
 if ($custom_query->have_posts()) {
 
     while( $custom_query->have_posts() ) {
         $custom_query->the_post();
-        
+
         // Build the talk object
-        
+
         $talk_object = array();
-        
+
         $id = get_the_ID();
 
         $talk_object = [
@@ -122,7 +75,7 @@ if ($custom_query->have_posts()) {
             "start" => get_post_meta( $id, '_mem_start_date', true),
             "end" => get_post_meta( $id, '_mem_end_date', true),
         ];
-        
+
         /**
          * add talk_object without a date to talks_unscheduled and the other to talks_scheduled
          */
@@ -134,15 +87,15 @@ if ($custom_query->have_posts()) {
             } else {
                 $talks_unscheduled['Other'][] = $talk_object;
             }
-            
+
         } else {
             $talks_scheduled[] = $talk_object;
         }
-        
-    } 
+
+    }
 }
 wp_reset_postdata();
- 
+
 ?>
 <!doctype html>
 <html class="no-js" lang="" moznomarginboxes mozdisallowselectionprint>
@@ -245,11 +198,12 @@ wp_reset_postdata();
                             // look at the response
 
                             if (response.success) {
-                                ale_EventStorage = [];
-                                console.log(response.data);
+                                console.log('emptying of the storage list disabled');
+                                // ale_EventStorage = [];
+                                console.log('response success', response);
 
                             } else {
-                                console.log(response);
+                                console.log('response error', response);
                             }
                         }
                     });
