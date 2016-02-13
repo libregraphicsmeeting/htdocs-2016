@@ -34,3 +34,10 @@ The following [custom fields](https://codex.wordpress.org/Custom_Fields) are bei
 The following custom fields are available when the user edits the Talk after approval:
 
 * Slides = lgm_slides
+
+### Timestamps
+
+We use the [Minimalistic Event Manager](https://github.com/ms-studio/minimalistic-event-manager/) plugin, so the timestamps are saved like this:
+
+* Start date: `_mem_start_date`
+* End date `_mem_end_date`

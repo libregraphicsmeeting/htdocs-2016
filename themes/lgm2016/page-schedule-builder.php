@@ -105,7 +105,6 @@
    					
    				$list_of_talks = array();
    				
-   					 
    				/* Method:
    				1: we load all events
    				2: events that have a start date are not shown
@@ -117,14 +116,91 @@
     			
     				while( $custom_query->have_posts() ) : $custom_query->the_post();
     					
-    					// do we have a start date?
+    					// Do we have a start date?
+    					$id = get_the_ID();
+    					$startdate = get_post_meta( $id, '_mem_start_date', true );
     					
+    					if ( empty( $startdate ) ) {
     					
+//    						echo "<div class='fc-event' data-post-id='".$id."'>";
+//    						the_title();
+//    						echo "</div>";
+    						
+    						// What is the prefered day?
+    						// lgm_preferred_day
+    						
+    						$talk_object = array();
+    						$talk_object["id"] = $id;
+    						$talk_object["title"] = get_the_title();
+    						
+    						$preferred_day = get_post_meta( $id, 'lgm_preferred_day', true );
+    						// echo $preferred_day;
+    						
+    						if ( 'Thursday' == $preferred_day ) {
+    						
+    							$list_of_talks['Thursday'][] = $talk_object;
+    						
+    						} else if ( 'Friday' == $preferred_day ) {
+    						
+    							$list_of_talks['Friday'][] = $talk_object;
+    						
+    						} else if ( 'Saturday' == $preferred_day ) {
+    						
+    							$list_of_talks['Saturday'][] = $talk_object;
+    						
+    						} else if ( 'Sunday' == $preferred_day ) {
+    						
+    							$list_of_talks['Sunday'][] = $talk_object;
+    						
+    						} else {
+    						
+    							$list_of_talks['Other'][] = $talk_object;
+    						
+    						}
+    					
+    					}
     					
     				endwhile;
     				 
     			endif;
     			wp_reset_postdata();
+    			
+    			// generate the markup...
+    			
+    			function lgm_cal_item_markup( $item ) {
+    				$cal_item_markup = "<div class='fc-event' data-post-id='".$item['id']."'>";
+    				$cal_item_markup .= $item["title"];
+    				$cal_item_markup .= "</div>";
+    				return $cal_item_markup;
+    			}
+    			
+    			if ( !empty($list_of_talks["Friday"]) ) {
+    			  echo '<p>FRIDAY</p>';
+    					foreach ($list_of_talks["Friday"] as $key => $item) {
+    							echo lgm_cal_item_markup( $item );
+    					}
+    			}
+    			
+    			if ( !empty($list_of_talks["Sunday"]) ) {
+    			  echo '<p>FRIDAY</p>';
+    					foreach ($list_of_talks["Sunday"] as $key => $item) {
+    							echo lgm_cal_item_markup( $item );
+    							
+    					}
+    			}
+    			
+    			if ( !empty($list_of_talks["Other"]) ) {
+    			  echo '<p>FRIDAY</p>';
+    					foreach ($list_of_talks["Other"] as $key => $item) {
+    							echo lgm_cal_item_markup( $item );
+    							
+    					}
+    			}
+    			
+    			
+    			// Friday
+    			// Sunday
+    			// All the rest:
     			
     			 ?>
     			
