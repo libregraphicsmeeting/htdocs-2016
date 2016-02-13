@@ -3,121 +3,145 @@
  * Template for building the schedule
  */
  
- // Define Variables
- 
- $fullcal = get_stylesheet_directory_uri().'/lib/fullcalendar/';
- 
- // Define Functions
- 
- function lgm_cal_item_markup( $item ) {
+$fullcal = get_stylesheet_directory_uri().'/lib/fullcalendar/';
 
- 	$cal_item_markup = "<div class='fc-event' data-post-id='".$item['id']."'>";
- 	$cal_item_markup .= $item["title"];
- 	$cal_item_markup .= "</div>";
- 	return $cal_item_markup;
+add_action('init', function () {
 
- }
+    // Register AJAX handlers
+
+    add_action('wp_ajax_save_schedule_builder_event', 'save_schedule_builder_event');
+    add_action('wp_ajax_nopriv_save_schedule_builder_event', 'save_schedule_builder_event');
+
+    // AJAX handler (PRIV / NO PRIV)
+
+    function save_schedule_builder_event()
+    {
+        if( empty ($_POST['action']) || $_POST['action'] !== 'save_schedule_builder_event') {
+            if (!empty ($fail_message)) {
+                wp_send_json_error(array(
+                    'message' => "Sorry!"
+                )); // die
+            }
+        }
+
+        $data = $_POST['data'];
+        
+        if ( !empty($data) ) {
+        
+                /*
+                wp_set_object_terms( 
+                  $id, // ID of the selected talk, submitted by form
+                  $state, // term: "accepted", submitted by form
+                  'talk-status', // $taxonomy, 
+                  false // $append 
+                );
+                */
+        
+        }
+
+        /*
+        wp_send_json_success(array(
+            'action' => $_POST['action'],
+            'message' => 'State Was Set To ' . $state,
+            'state' => $state,
+            'ID' => $id
+        )); // die
+        */
+    }
+    
+});
  
- function lgm_cal_item_json( $item ) {
- 
- 	$cal_item_markup = "post-id  :  '".$item['id']."',";
- 	$cal_item_markup .= "title  :  '".$item['title']."',";
- 	
- 	if ( !empty( $item["start"] ) ) {
- 			$cal_item_markup .= "start  :  '".$item["start"]."',";
- 		}
- 	
- 	if ( !empty( $item["end"] ) ) {
- 		$cal_item_markup .= "end  :  '".$item["end"]."',";
- 	}
- 	
- 	return $cal_item_markup;
- 	
- }
- 
- // Generate content
- 
- // load events for LGM day 1
-     			 
-     			 $custom_query = new WP_Query( array(
-    					 	'post_type' => 'talk',
-    					 	'post_status' => 'any',
-    					 	'posts_per_page' => -1,
-    					 	'orderby' => 'date',
-    					 	'order' => 'ASC',
-    					) ); 
-    					
-    				$talks_scheduled = array();
-    				$talks_unscheduled = array();
-    				
-    			/* Method:
-    				
-    				1: we load all events
-    				2: events that have a start date are not shown
-    				3: events are added to appropriate array, depending of day
-     				4: markup is generated
-     			*/
+function lgm_cal_item_markup( $item ) {
+
+	$cal_item_markup = "<div class='fc-event' data-post-id='".$item['id']."'>";
+	$cal_item_markup .= $item["title"];
+	$cal_item_markup .= "</div>";
+	return $cal_item_markup;
+
+}
+
+function lgm_cal_events_json($list) {
+    $result = [];
+    foreach ($list as $item) {
+        $iitem = [
+            'post-id' =>  $item['id'],
+            'title' =>  $item['title'],
+        ];
+        if ( !empty( $item['start'] ) ) {
+            $iitem['start'] = $item['start'];
+        }
+        if ( !empty( $item['end'] ) ) {
+            $iitem['end'] = $item['end'];
+        }
+        $result[] = $iitem;
+    }
+    return json_encode($result);
+}
+
+// Generate content
+
+$custom_query = new WP_Query( array(
+            'post_type' => 'talk',
+            'post_status' => 'any',
+            'posts_per_page' => -1,
+            'orderby' => 'date',
+            'order' => 'ASC',
+            ) ); 
+
+$talks_scheduled = array();
+$talks_unscheduled = array(
+    'Thursday' => [],
+    'Friday' => [],
+    'Saturday' => [],
+    'Sunday' => [],
+    'Other' => [],
+);
+            
+/* Method:
+    
+    1: we load all events
+    2: events that have a start date are not shown
+    3: events are added to appropriate array, depending of day
+    4: markup is generated
+*/
      			
-     			if ($custom_query->have_posts()) : 
-     			
-     				while( $custom_query->have_posts() ) : $custom_query->the_post();
-     					
-     					// Build the talk object
-     					
-     					$talk_object = array();
-     					
-     					$id = get_the_ID();
-     					$talk_object["id"] = $id;
-     					$talk_object["title"] = get_the_title();
-     					
-     					$talk_object["start"] = get_post_meta( $id, '_mem_start_date', true );
-     					$talk_object["end"] = get_post_meta( $id, '_mem_end_date', true );
-     					
-     					// Do we have a start date?
-     					
-     					if ( empty( $talk_object["start"] ) ) {
- 
-     						// What is the prefered day?
-     						
-     						$preferred_day = get_post_meta( $id, 'lgm_preferred_day', true );
-     						// echo $preferred_day;
-     						
-     						if ( 'Thursday' == $preferred_day ) {
-     						
-     							$talks_unscheduled['Thursday'][] = $talk_object;
-     						
-     						} else if ( 'Friday' == $preferred_day ) {
-     						
-     							$talks_unscheduled['Friday'][] = $talk_object;
-     						
-     						} else if ( 'Saturday' == $preferred_day ) {
-     						
-     							$talks_unscheduled['Saturday'][] = $talk_object;
-     						
-     						} else if ( 'Sunday' == $preferred_day ) {
-     						
-     							$talks_unscheduled['Sunday'][] = $talk_object;
-     						
-     						} else {
-     						
-     							$talks_unscheduled['Other'][] = $talk_object;
-     						
-     						}
-     					
-     					} else {
-     					
-     						// we HAVE a start date - add object to array of scheduled talks.
-     						
-     						$talks_scheduled[] = $talk_object;
-     						
-     					}
-     					
-     				endwhile;
-     				 
-     			endif;
-     			wp_reset_postdata();
-     			
- 
+if ($custom_query->have_posts()) {
+
+    while( $custom_query->have_posts() ) {
+        $custom_query->the_post();
+        
+        // Build the talk object
+        
+        $talk_object = array();
+        
+        $id = get_the_ID();
+
+        $talk_object = [
+            "id" => $id,
+            "title" => get_the_title(),
+            "start" => get_post_meta( $id, '_mem_start_date', true),
+            "end" => get_post_meta( $id, '_mem_end_date', true),
+        ];
+        
+        /**
+         * add talk_object without a date to talks_unscheduled and the other to talks_scheduled
+         */
+        if ( empty( $talk_object["start"] ) ) {
+            $preferred_day = get_post_meta( $id, 'lgm_preferred_day', true );
+            // echo $preferred_day;
+            if (array_key_exists($preferred_day, $talks_unscheduled)) {
+                $talks_unscheduled[$preferred_day][] = $talk_object;
+            } else {
+                $talks_unscheduled['Other'][] = $talk_object;
+            }
+            
+        } else {
+            $talks_scheduled[] = $talk_object;
+        }
+        
+    } 
+}
+wp_reset_postdata();
  
 ?>
 <!doctype html>
@@ -128,105 +152,128 @@
         <title>LGM Schedule Builder</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-				<meta name="robots" content="noindex, nofollow">
-				
-				<link href='<?php echo $fullcal ?>/fullcalendar.css' rel='stylesheet' />
-				<link href='<?php echo $fullcal ?>/fullcalendar.print.css' rel='stylesheet' media='print' />
-				<script src='<?php echo $fullcal ?>/lib/moment.min.js'></script>
-				<script src='<?php echo $fullcal ?>/lib/jquery.min.js'></script>
-				<script src='<?php echo $fullcal ?>/lib/jquery-ui.custom.min.js'></script>
-				<script src='<?php echo $fullcal ?>/fullcalendar.min.js'></script>
-				
-				<!-- and our custom script -->
-				<script>
+            <meta name="robots" content="noindex, nofollow">
+            
+            <link href='<?php echo $fullcal ?>/fullcalendar.css' rel='stylesheet' />
+            <link href='<?php echo $fullcal ?>/fullcalendar.print.css' rel='stylesheet' media='print' />
+            <script src='<?php echo $fullcal ?>/lib/moment.min.js'></script>
+            <script src='<?php echo $fullcal ?>/lib/jquery.min.js'></script>
+            <script src='<?php echo $fullcal ?>/lib/jquery-ui.custom.min.js'></script>
+            <script src='<?php echo $fullcal ?>/fullcalendar.min.js'></script>
+            
+            <!-- and our custom script -->
+            <script>
 				$(document).ready(function() {
 				    
 				    
-				    		/* initialize the external events
-				    		-----------------------------------------------------------------*/
-				    
-				    		$('#external-events .fc-event').each(function() {
-				    
-				    			// store data so the calendar knows to render an event upon drop
-				    			$(this).data('event', {
-				    				title: $.trim($(this).text()), // use the element's text as the event title
-				    				stick: true // maintain when user navigates (see docs on the renderEvent method)
-				    			});
-				    
-				    			// make the event draggable using jQuery UI
-				    			$(this).draggable({
-				    				zIndex: 999,
-				    				revert: true,      // will cause the event to go back to its
-				    				revertDuration: 0  //  original position after the drag
-				    			});
-				    
-				    		});
-				    
-				    
-				    		/* initialize the calendar
-				    		-----------------------------------------------------------------*/
-				    
-				    		$('#calendar').fullCalendar({
-				    			header: {
-				    				left: 'prev,next today',
-				    				center: 'title',
-				    				right: 'agendaDay'
-				    			},
-				    			editable: true,
-				    			droppable: true, // this allows things to be dropped onto the calendar
-				    			
-				    			// LGM Custom Settings:
+                /* initialize the external events
+                -----------------------------------------------------------------*/
+        
+                $('#external-events .fc-event').each(function() {
+        
+                    // store data so the calendar knows to render an event upon drop
+                    $(this).data('event', {
+                        title: $.trim($(this).text()), // use the element's text as the event title
+                        stick: true // maintain when user navigates (see docs on the renderEvent method)
+                    });
+        
+                    // make the event draggable using jQuery UI
+                    $(this).draggable({
+                        zIndex: 999,
+                        revert: true,      // will cause the event to go back to its
+                        revertDuration: 0  //  original position after the drag
+                    });
+        
+                });
+        
+        
+                /* initialize the calendar
+                -----------------------------------------------------------------*/
+        
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'agendaDay'
+                    },
+                    editable: true,
+                    droppable: true, // this allows things to be dropped onto the calendar
+                    
+                    // LGM Custom Settings:
 
-				    			axisFormat: 'HH:mm',
-				    			scrollTime: '08:00:00',
-				    			defaultView: 'agendaDay',
-				    			slotDuration: '00:10:00',
-				    			defaultTimedEventDuration: '00:20:00',
-				    			defaultDate: '2016-04-15',
-	
-									// EVENTS
-									// query for talks that have a start event
-									<?php 
-									
-										if ( !empty($talks_scheduled) ) {
-										
-											echo 'events: [';
-										
-												foreach ($talks_scheduled as $key => $item) {
-														?> {  
-														<?php 
-														echo lgm_cal_item_json( $item );
-														?> 
-														}, 
-														<?php 
-												}
-												
-											echo '],';		
-										}
-										
-									 ?>
-									
-				    			// end LGM custom settings
-				    			
-				    			drop: function() {
-				    					$(this).remove();
-				    			},
-				    			
-				    			eventDrop: function(event, delta) {
-				    					// http://fullcalendar.io/docs/event_ui/eventDrop/
-					            // alert(event.title + ' was moved ' + delta + ' days\n' + '(should probably update your database)');
-					        },
-					        eventReceive: function(event, delta) {
-					        		// http://fullcalendar.io/docs/event_ui/eventDrop/
-					            // alert(event.title + ' was placed ' + delta + ' days\n' + '(should probably update your database)');
-					        }
-				    		});
-				    
-				    
-				    	});
-				
-				
-				</script>
+                    axisFormat: 'HH:mm',
+                    scrollTime: '08:00:00',
+                    defaultView: 'agendaDay',
+                    slotDuration: '00:10:00',
+                    defaultTimedEventDuration: '00:20:00',
+                    defaultDate: '2016-04-15',
+                    events: <?= lgm_cal_events_json($talks_scheduled) ?>,
+
+                    drop: function(date, jsEvent, ui, resourceId) {
+                        $(this).remove();
+                        // console.log('data-id', jsEvent.toElement.attributes['data-post-id'].nodeValue);
+                        post_id = jsEvent.toElement.attributes['data-post-id'].nodeValue;
+                        ale_EventCreate(date, post_id);
+                    },
+                    eventDragStop: function(event) {
+                            ale_EventDrag(event);
+                    }
+                });
+            });
+
+            /**
+             * reacting to changes in the calendar and storing in wordpress through ajax
+             */
+            ale_EventStorage = [];
+
+            $(document).ready(function() {
+               $('form[name="scheduleBuilderSave"]').click(ale_EventSave);
+            });
+
+            function ale_EventSave() {
+               if (ale_EventStorage.length > 0) {
+                   console.log('ale_EventStorage', ale_EventStorage);
+                   $.ajax({
+                        type: 'POST',
+                        url: "<?php echo admin_url('admin-ajax.php'); ?>",
+                        data: {
+                            action: 'save_schedule_builder_event',
+                            data: ale_EventStorage,
+                        },
+                        success: function (response) {
+
+                            // look at the response
+
+                            if (response.success) {
+                                ale_EventStorage = [];
+                                console.log(response.data);
+
+                            } else {
+                                console.log(response);
+                            }
+                        }
+                    });
+               }
+               return false;
+            }
+
+            function ale_EventDrag(event) {
+                // console.log('event', event);
+                post_id = event['post-id'];
+                // console.log('post_id', post_id);
+                start = event.start.toISOString();
+                // console.log('start', start);
+                ale_EventStorage[post_id] = start;
+            }
+            function ale_EventCreate(date, post_id) {
+                console.log('post_id', post_id);
+                console.log('date', date.toISOString());
+                start = date.toISOString();
+                ale_EventStorage[post_id] = start;
+            }
+    
+    
+    </script>
 				
     </head>
     <style>
@@ -285,47 +332,21 @@
     	<div id='wrap'>
     
     		<div id='external-events'>
+                <form name = "scheduleBuilderSave"><button name="save">save</button></form>
     			<h4>Draggable Events</h4>
     			<?php 
-    			 
     			// generate the markup...
-    			
-    			if ( !empty($talks_unscheduled["Thursday"]) ) {
-    			  echo '<h5>Thursday</h5>';
-    					foreach ($talks_unscheduled["Thursday"] as $key => $item) {
-    							echo lgm_cal_item_markup( $item );
+                foreach ($talks_unscheduled as $key => $value) {
+                    if ( !empty($value) ) {
+                        echo '<h5>'.$key.'</h5>';
+    					foreach ($value as $item) {
+                            echo lgm_cal_item_markup( $item );
     					}
-    			}
-    			
-    			if ( !empty($talks_unscheduled["Friday"]) ) {
-    			  echo '<h5>Friday</h5>';
-    					foreach ($talks_unscheduled["Friday"] as $key => $item) {
-    							echo lgm_cal_item_markup( $item );
-    					}
-    			}
-    			
-    			if ( !empty($talks_unscheduled["Saturday"]) ) {
-    			  echo '<h5>Saturday</h5>';
-    					foreach ($talks_unscheduled["Saturday"] as $key => $item) {
-    							echo lgm_cal_item_markup( $item );
-    					}
-    			}
-    			
-    			if ( !empty($talks_unscheduled["Sunday"]) ) {
-    			  echo '<h5>Sunday</h5>';
-    					foreach ($talks_unscheduled["Sunday"] as $key => $item) {
-    							echo lgm_cal_item_markup( $item );
-    					}
-    			}
-    			
-    			if ( !empty($talks_unscheduled["Other"]) ) {
-    			  echo '<h5>Others</h5>';
-    					foreach ($talks_unscheduled["Other"] as $key => $item) {
-    							echo lgm_cal_item_markup( $item );
-    					}
-    			}
+                    }
 
-    			 ?>
+                }
+    			 
+            ?>
     			
     		</div>
     
