@@ -73,38 +73,44 @@ add_action('init', function () {
                   * meta_key: '_mem_end_date' // cf. documentation on github
                   */
                  foreach ($data as $item) {
-                     if (is_array($item) && array_key_exists('post-id', $item) && array_key_exists('start', $item)) {
-                         // list($date, $hour) = explode('T', $item['start']);
-                         $date_time = substr(str_replace('T', ' ', $item['start']), 0, -3);
-                         update_post_meta($item['post-id'], '_mem_start_date', $date_time);
+                     if (is_array($item) && array_key_exists('post-id', $item)) {
+                         $dateStart = null;
+                         if (array_key_exists('start', $item)) {
+                             $dateObject = new DateTime($item['start']);
+                             $dateStart = $dateObject->format('Y-m-d H:i');
+                             update_post_meta($item['post-id'], '_mem_start_date', $dateStart);
+                         }
+                          // if duration is set, delete the end date if it's 20 minutes, or calculate
+                          // and set an end date otherwise
+                         if (array_key_exists('duration', $item)) {
+                             if ($item['duration'] == 20) {
+                                 delete_post_meta($item['post-id'], '_mem_end_date');
+                             } else {
+                                 if (is_null($dateStart)) {
+                                     $dateStart = get_post_meta($item['post-id'], '_mem_start_date', true);
+                                 }
+                                 $dateObject = new DateTime($dateStart);
+                                 $dateObject->add(new DateInterval('PT'.$item['duration'].'M'));
+                                 $dateEnd = $dateObject->format('Y-m-d H:i');
+                                 update_post_meta($item['post-id'], '_mem_end_date', $dateEnd);
+                             }
+                         }
                      }
                  }
 
                 wp_send_json_success(array(
                     'action' => $_POST['action'],
-                    // 'message' => 'I got in '.print_r($_POST, 1),
-                    'message' => 'I got in '.print_r($date_time, 1),
+                    // 'message' => 'update disabled '.print_r($_POST, 1),
+                    'message' => 'Saved '.print_r($dateStart, 1),
                     'state' => true,
                 ));
-
-
-                /*
-                wp_set_object_terms(
-                  $id, // ID of the selected talk, submitted by form
-                  $state, // term: "accepted", submitted by form
-                  'talk-status', // $taxonomy,
-                  false // $append
-                );
-                */
-
         }
 
         wp_send_json_success(array(
             'action' => $_POST['action'],
-            'message' => 'Items saved',
+            'message' => 'No items to be saved',
             'state' => true,
         )); // die
     }
 
 });
-
