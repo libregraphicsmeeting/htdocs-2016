@@ -168,7 +168,8 @@ wp_reset_postdata();
                         post_id = jsEvent.toElement.attributes['data-post-id'].nodeValue;
                         ale_EventCreate(date, post_id);
                     },
-                    eventDragStop: function(event) {
+                    eventDrop: function(event) {
+                            // console.log('event', event);
                             ale_EventDrag(event);
                     }
                 });
@@ -185,25 +186,35 @@ wp_reset_postdata();
 
             function ale_EventSave() {
                if (ale_EventStorage.length > 0) {
-                   console.log('ale_EventStorage', ale_EventStorage);
+                   // console.log('ale_EventStorage', ale_EventStorage);
+                   // avoid  sending an "indexed" array:  each unset element is filled with 0
+                   var dataPost = [];
+                   $.each(ale_EventStorage, function(i, val) {
+                       if (val) {
+                           dataPost.push({
+                               'post-id': i,
+                               'start': val
+                           });
+                       }
+                   });
                    $.ajax({
                         type: 'POST',
                         url: "<?php echo admin_url('admin-ajax.php'); ?>",
                         data: {
                             action: 'save_schedule_builder_event',
-                            data: ale_EventStorage,
+                            data: dataPost 
                         },
                         success: function (response) {
 
                             // look at the response
 
                             if (response.success) {
-                                console.log('emptying of the storage list disabled');
-                                // ale_EventStorage = [];
-                                console.log('response success', response);
+                                // console.log('emptying of the storage list disabled');
+                                ale_EventStorage = [];
+                                // console.log('response success', response);
 
                             } else {
-                                console.log('response error', response);
+                                // console.log('response error', response);
                             }
                         }
                     });
@@ -220,8 +231,8 @@ wp_reset_postdata();
                 ale_EventStorage[post_id] = start;
             }
             function ale_EventCreate(date, post_id) {
-                console.log('post_id', post_id);
-                console.log('date', date.toISOString());
+                // console.log('post_id', post_id);
+                // console.log('date', date.toISOString());
                 start = date.toISOString();
                 ale_EventStorage[post_id] = start;
             }

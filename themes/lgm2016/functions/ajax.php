@@ -53,11 +53,6 @@ add_action('init', function () {
      */
     function save_schedule_builder_event()
     {
-        wp_send_json_success(array(
-            'action' => $_POST['action'],
-            'message' => 'I got in',
-            'state' => true,
-        ));
         if( empty ($_POST['action']) || $_POST['action'] !== 'save_schedule_builder_event') {
             if (!empty ($fail_message)) {
                 wp_send_json_error(array(
@@ -68,7 +63,7 @@ add_action('init', function () {
 
         $data = $_POST['data'];
 
-        if ( !empty($data) ) {
+        if (!empty($data) && is_array($data)) {
 
                  /**
                   * post_id: the id the talk
@@ -78,8 +73,20 @@ add_action('init', function () {
                   * meta_key: '_mem_end_date' // cf. documentation on github
                   */
                  foreach ($data as $item) {
-                     // update_post_meta($post_id, $meta_key, $meta_value, $prev_value);
+                     if (is_array($item) && array_key_exists('post-id', $item) && array_key_exists('start', $item)) {
+                         // list($date, $hour) = explode('T', $item['start']);
+                         $date_time = substr(str_replace('T', ' ', $item['start']), 0, -3);
+                         update_post_meta($item['post-id'], '_mem_start_date', $date_time);
+                     }
                  }
+
+                wp_send_json_success(array(
+                    'action' => $_POST['action'],
+                    // 'message' => 'I got in '.print_r($_POST, 1),
+                    'message' => 'I got in '.print_r($date_time, 1),
+                    'state' => true,
+                ));
+
 
                 /*
                 wp_set_object_terms(
