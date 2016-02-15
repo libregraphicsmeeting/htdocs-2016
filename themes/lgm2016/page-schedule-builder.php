@@ -278,13 +278,13 @@ wp_reset_postdata();
     	}
     		
     	#wrap {
-    		width: 1100px;
+    		width: 100%;
     		margin: 0 auto;
     	}
     		
     	#external-events {
     		float: left;
-    		width: 150px;
+    		width: 25%;
     		padding: 0 10px;
     		border: 1px solid #ccc;
     		background: #eee;
@@ -315,7 +315,13 @@ wp_reset_postdata();
     
     	#calendar {
     		float: right;
-    		width: 900px;
+    		width: 70%;
+    		position: fixed;
+    		top:  0px;
+    		right: 10px;
+    		margin: 0 0 0 0;
+    		-moz-box-sizing: border-box;
+    		box-sizing: border-box;
     	}
     	
     	.save-button {
