@@ -68,10 +68,13 @@ if ($custom_query->have_posts()) {
         $talk_object = array();
 
         $id = get_the_ID();
+        $title = get_the_title();
+        $title .= ' ('.get_post_meta( $id, 'lgm_speaker_firstname', true ).' ';
+        $title .= get_post_meta( $id, 'lgm_speaker_lastname', true ).')';
 
         $talk_object = [
             "id" => $id,
-            "title" => get_the_title(),
+            "title" => $title,
             "start" => get_post_meta( $id, '_mem_start_date', true),
             "end" => get_post_meta( $id, '_mem_end_date', true),
         ];
