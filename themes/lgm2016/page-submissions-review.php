@@ -83,8 +83,8 @@ get_header(); ?>
 										
 										// 4) Actions
 										echo '<td>';
-							       echo '<a class="action pending-accept">accept</a>';
-							       echo '<a class="action pending-reject">reject</a>'; 
+							       // echo '<a class="action pending-accept">accept</a>';
+							       // echo '<a class="action pending-reject">reject</a>'; 
 										echo '</td>';
 								
 							echo '</tr>';
