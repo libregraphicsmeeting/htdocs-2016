@@ -1,0 +1,7 @@
+@media only screen and (min-width: 900px) {
+    article.post-368 div.threecol {
+        -webkit-column-count: 4;
+        -moz-column-count: 4;
+        column-count: 4;
+    }
+}
