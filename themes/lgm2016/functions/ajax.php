@@ -76,8 +76,21 @@ add_action('init', function () {
                      if (is_array($item) && array_key_exists('post-id', $item)) {
                          $dateStart = null;
                          if (array_key_exists('start', $item)) {
-                             $dateObject = new DateTime($item['start']);
-                             $dateStart = $dateObject->format('Y-m-d H:i');
+                             // if we did not change the duration we have to check if an end is defined
+                             // and if it is the case set the duration so that the end also gets moved
+                             if (!array_key_exists('duration', $item)) {
+                                 $end = get_post_meta($item['post-id'], '_mem_end_date', true);
+                                 if ($end) {
+                                     $dateEndObject = new DateTime($end);
+                                     $start = get_post_meta($item['post-id'], '_mem_start_date', true);
+                                     $dateStartObject = new DateTime($start);
+                                     $diff = $dateStartObject->diff($dateEndObject);
+                                     $item['duration'] = $diff->i;
+                                 }
+                             }
+
+                             $dateStartObject = new DateTime($item['start']);
+                             $dateStart = $dateStartObject->format('Y-m-d H:i');
                              update_post_meta($item['post-id'], '_mem_start_date', $dateStart);
                          }
                           // if duration is set, delete the end date if it's 20 minutes, or calculate
@@ -101,6 +114,7 @@ add_action('init', function () {
                 wp_send_json_success(array(
                     'action' => $_POST['action'],
                     // 'message' => 'update disabled '.print_r($_POST, 1),
+                    // 'message' => 'update disabled '.print_r($end, 1),
                     'message' => 'Saved '.print_r($dateStart, 1),
                     'state' => true,
                 ));

@@ -213,7 +213,7 @@ wp_reset_postdata();
                                 // console.log('emptying of the storage list disabled');
                                 ale_EventStorage = {};
                                 ale_EventStorageDirty = false;
-                                console.log('response success', response);
+                                // console.log('response success', response);
                             } else {
                                 console.log('response error', response);
                             }
@@ -252,10 +252,10 @@ wp_reset_postdata();
             }
 
             function ale_EventResize(event) {
-                console.log('event', event);
+                // console.log('event', event);
                 var post_id = event['post-id'];
                 var duration = (event.end - event.start)/1000/60;
-                console.log('duration', duration);
+                // console.log('duration', duration);
                 if (post_id in ale_EventStorage) {
                     ale_EventStorage[post_id].duration = duration;
                 } else {
