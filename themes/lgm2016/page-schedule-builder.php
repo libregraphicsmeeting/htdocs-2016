@@ -181,6 +181,11 @@ wp_reset_postdata();
                     eventResize: function(event) {
                             // console.log('event', event);
                             ale_EventResize(event);
+                    },
+                    eventClick: function(calEvent, jsEvent, view) {
+                        console.log('calEvent', calEvent);
+                        var url = '<?= admin_url() ?>post.php?post='+calEvent['post-id']+'&action=edit'
+                        var win = window.open(url, '_blank');
                     }
                 });
             });
