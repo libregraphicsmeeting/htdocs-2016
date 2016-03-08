@@ -45,15 +45,19 @@ $time_slot = [
     ],
 ];
 
-$custom_query = new WP_Query(array(
-    'post_type' => 'talk',
-    'post_status' => 'any',
-    'posts_per_page' => -1,
-    // 'orderby' => 'date',
-    'orderby' => 'meta_value',
-    'meta_key' => '_mem_start_date',
-    'order' => 'ASC',
-));
+if (is_user_logged_in() || (false === ($custom_query = get_transient('page_schedule_grid')))) {
+    $custom_query = new WP_Query(array(
+      'post_type' => 'talk',
+      'post_status' => 'any',
+      'posts_per_page' => -1,
+      // 'orderby' => 'date',
+      'orderby' => 'meta_value',
+      'meta_key' => '_mem_start_date',
+      'order' => 'ASC',
+    ));
+      	     	 	
+    set_transient('lgm16_schedule_grid', $custom_query, 12 * HOUR_IN_SECONDS);
+} 
 
 $schedule = [
 ];
@@ -117,15 +121,7 @@ if ($custom_query->have_posts()) {
 // die();
 
 ?>
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-    </head>
-    <style>
-    </style>
-    <body>
+<?php include(get_stylesheet_directory().'/header.php') ?>
         <style>
         .schedule {
             display:table-row;
@@ -246,6 +242,7 @@ if ($custom_query->have_posts()) {
                 <?php foreach($schedule[$i] as $j => $slot) : ?>
                 <ul class="slot slot-<?= $time_slot[$i][$j] ?>">
                 <?php foreach($slot as $item) : ?>
+                <?php // TODO: add a popup with details (https://gist.github.com/sniperwolf/5652986) ?>
                 <li><?= sprintf('%s (%s): %s', $item['time'], $item['duration'], $item['title']) ?></li>
                 <?php endforeach; ?>
                 </ul>
@@ -254,5 +251,4 @@ if ($custom_query->have_posts()) {
                 <?php endfor; ?>
             </div>
         </div>
-   </body>
-</html>
+<?php include(get_stylesheet_directory().'/footer.php') ?>
