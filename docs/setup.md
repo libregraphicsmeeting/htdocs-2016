@@ -20,3 +20,10 @@ in the file formidable/pro/classes/controllers/FrmProEddController.php, add:
 function pro_is_authorized() {
 	return true;
 ```
+
+## Themes
+
+- in `wp-config.php` set 
+      `define('WP_DEBUG', true);`
+  or compile the css files with `grunt`...
+

@@ -27,9 +27,12 @@ $time_slot = [
         10*60+00,
         13*60+00,
         15*60+40,
+        16*60+40,
+        18*60+00,
+        19*60+00,
     ],
     17 => [
-        11*60+00,
+        10*60+00,
         13*60+00,
         15*60+40,
         18*60+00,
@@ -64,7 +67,7 @@ foreach($day as $d_day) {
 }
 // echo("<pre>".print_r($schedule, 1)."</pre>");
 
-echo("<pre>".print_r($time_slot, 1)."</pre>");
+// echo("<pre>".print_r($time_slot, 1)."</pre>");
 function getScheduleSlot($day, $time) {
     global $time_slot;
     $result = 0;
@@ -129,32 +132,107 @@ if ($custom_query->have_posts()) {
             vertical-align:top;
             background-color:lightgray;
         }
-        .schedule .time {
-            width:80px;
-            display:table-cell;
-            vertical-align:top;
-        }
         .schedule .day {
             width:300px;
             display:table-cell;
             vertical-align:top;
         }
+        .schedule .time {
+            background-color:yellow;
+            width:80px;
+        }
+        .schedule .time ul {
+            list-style-type: none;
+            padding:0;
+            margin:0;
+        }
+        <?php function cssSH($h, $m = 0) { return 80*$h + (80/60*$m);} ?>
         .schedule .time ul li{
-            height:70px;
+            height:<?= cssSH(1) ?>px;
         }
-        .schedule .day-15 {
-            background-color:orange;
-        }
-        .schedule .day-15 .slot-660 {
-            margin-top:80px;
+        .schedule .slot {
+            /* overflow-y: hidden; */
+            overflow-y: scroll;
             background-color:lightblue;
         }
-        .schedule .day-16 {
-            background-color:green;
+        .schedule ul.slot {
+            list-style-type: none;
+            padding:0;
+            margin:0;
+        }
+
+        .schedule .day-15 .slot-660 {
+            margin-top:<?= cssSH(1) ?>px; /* 1'00 */
+            height: <?= cssSH(1,40) ?>px; /* 1'40 */
+        }
+        .schedule .day-15 .slot-800 {
+            margin-top:<?= cssSH(0,40) ?>px; /* 0'40 */
+            height: <?= cssSH(2,20) ?>px; /* 2'20 */
+        }
+        .schedule .day-15 .slot-980 {
+            margin-top:<?= cssSH(1,20) ?>px; /* 1'20 */
+            height: <?= cssSH(2) ?>px; /* 2'00 */
+        }
+
+        .schedule .day-16 .slot-600 {
+            height: <?= cssSH(2,20) ?>px; /* 2'20 */
+        }
+        .schedule .day-16 .slot-780 {
+            margin-top:<?= cssSH(0,40) ?>px; /* 0'40 */
+            height: <?= cssSH(2) ?>px; /* 2'00 */
+        }
+        .schedule .day-16 .slot-940 {
+            margin-top:<?= cssSH(0,40) ?>px; /* 0'40 */
+            height: <?= cssSH(1) ?>px; /* 1'00 */
+        }
+        .schedule .day-16 .slot-1000 {
+            height: <?= cssSH(1) ?>px;
+        }
+        .schedule .day-16 .slot-1080 {
+            margin-top:<?= cssSH(0,20) ?>px;
+            height: <?= cssSH(1) ?>px;
+        }
+        .schedule .day-16 .slot-1140 {
+            height: <?= cssSH(1) ?>px;
+        }
+        .schedule .day-17 .slot-600 {
+            height: <?= cssSH(2,20) ?>px; /* 2'20 */
+        }
+        .schedule .day-17 .slot-780 {
+            margin-top:<?= cssSH(0,40) ?>px; /* 0'40 */
+            height: <?= cssSH(2) ?>px; /* 2'00 */
+        }
+        .schedule .day-17 .slot-940 {
+            margin-top:<?= cssSH(0,40) ?>px;
+            height: <?= cssSH(2) ?>px; /* 2'00 */
+        }
+        .schedule .day-17 .slot-1080 {
+            margin-top:<?= cssSH(0,20) ?>px; /* 0'20 */
+            height: <?= cssSH(0,40) ?>px; /* 0'40 */
+        }
+        .schedule .day-18 .slot-600 {
+            height: <?= cssSH(2) ?>px; /* 2'00 */
+        }
+        /*
+        .schedule .day-18 .slot-600 li {
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
+        */
+        .schedule .day-18 .slot-780 {
+            margin-top:<?= cssSH(1) ?>px; /* 1'00 */
+            height: <?= cssSH(1) ?>px; /* 1'00 */
+        }
+        .schedule .day-18 .slot-920 {
+            margin-top:<?= cssSH(1,20) ?>px; /* 1'20 */
+            height: <?= cssSH(1) ?>px; /* 1'00 */
         }
         </style>
     	<div id='wrap'>
-            <h1>blah</h1>
+            <h1>The schedule draft</h1>
             <div class="schedule">
                 <div class="day time">
                     <ul>
@@ -166,7 +244,7 @@ if ($custom_query->have_posts()) {
                 <?php for ($i = 15; $i <= 18; $i++) : ?>
                 <div class="day day-<?= $i ?>">
                 <?php foreach($schedule[$i] as $j => $slot) : ?>
-                <ul class="slot-<?= $time_slot[$i][$j] ?>">
+                <ul class="slot slot-<?= $time_slot[$i][$j] ?>">
                 <?php foreach($slot as $item) : ?>
                 <li><?= sprintf('%s (%s): %s', $item['time'], $item['duration'], $item['title']) ?></li>
                 <?php endforeach; ?>
