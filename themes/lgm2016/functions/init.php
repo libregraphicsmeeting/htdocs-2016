@@ -40,6 +40,18 @@ function lgm_register_styles() {
 }
 add_action( 'wp_enqueue_scripts', 'lgm_register_styles', 25 );
 
+// apply_filters( 'comment_form_default_fields', $fields );
+// see https://core.trac.wordpress.org/browser/tags/4.4.2/src/wp-includes/comment-template.php#L2158
+
+function lgm_alter_comment_form_fields($fields){
+    //$fields['author'] = ''; //removes name field
+    //$fields['email'] = '';  //removes email field
+    //$fields['url'] = '';  //removes website field
+    $fields['title_reply'] = 'Leave a comment'; 
+    return $fields;
+}
+add_filter('comment_form_default_fields','lgm_alter_comment_form_fields');
+add_filter('comment_form_defaults','lgm_alter_comment_form_fields');
 
 
 // Change-Detector-XXXX - for automatic synching

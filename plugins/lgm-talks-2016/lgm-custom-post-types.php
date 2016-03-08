@@ -37,6 +37,7 @@ function lgm_register_post_types() {
 		  	'author',
 		  	'custom-fields',
 		  	'publicize',
+		  	'comments',
 		  	),
 		  	'taxonomies' => array( 'talk-status', 'talk-format', 'room',  'post_tag' ),
 		  	'has_archive'		 => true,

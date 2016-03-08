@@ -9,9 +9,55 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+	
+	<?php 
+		
+		$lgm_current_posttype = get_post_type();
+		$id = get_the_ID();
+		 
+		if ( $lgm_current_posttype == 'talk' ) {
+		    
+		    ?>
+		    <header class="entry-header">
+		    	<h1 class="entry-title">
+		    	<?php 
+		    		// Show the speaker name
+		    		
+		    		echo get_post_meta( $id, 'lgm_speaker_firstname', true );
+		    		echo '';
+		    		echo get_post_meta( $id, 'lgm_speaker_lastname', true );
+		    		
+		    		// Show additional speakers:
+		    		
+		    		$lgm_additional_speakers = get_post_meta( $id, 'lgm_additional_speakers', true );
+		    		
+		    		if (!empty($lgm_additional_speakers)) {
+		    		
+		    			echo ', '. $lgm_additional_speakers ;
+		    		
+		    		}
+		    	
+		    		echo ' : ';	
+		    	 
+		    	  the_title(); ?>
+		    	</h1>
+		    </header><!-- .entry-header -->
+		    <?php
+		    
+		} else {
+		
+				?>
+				<header class="entry-header">
+					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+				</header><!-- .entry-header -->
+				<?php
+		
+		}
+	
+	
+	 ?>
+
+	
 
 	<?php twentysixteen_excerpt(); ?>
 
@@ -20,6 +66,29 @@
 	<div class="entry-content">
 		<?php
 			the_content();
+
+
+			// Show speaker bio
+			
+			$lgm_speaker_bio = get_post_meta( $id, 'lgm_short_bio', true );
+			
+			if (!empty($lgm_speaker_bio)) {
+			
+				echo '<p class="biography">'. $lgm_speaker_bio . '</p>' ;
+			
+			}
+			
+			// Show speaker website
+			
+			$lgm_speaker_website = get_post_meta( $id, 'lgm_speaker_website', true );
+			
+			if (!empty($lgm_speaker_website)) {
+			
+				echo '<p class="website">On the web: <a href="'.$lgm_speaker_website.'">'. $lgm_speaker_website . '</a></p>' ;
+			
+			}
+			
+
 
 			wp_link_pages( array(
 				'before'      => '<div class="page-links"><span class="page-links-title">' . __( 'Pages:', 'twentysixteen' ) . '</span>',

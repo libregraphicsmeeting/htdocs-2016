@@ -109,6 +109,12 @@ a {
 	
 }
 
+
+.biography {
+	margin-top: 2em;
+	font-style: italic;	
+}
+
 /* @group Tables */
 
 table {
@@ -321,6 +327,8 @@ table th[class*="col-"] {
 
 /* @end */
 
+/* @group schedule review */
+
 .action {
 	display: block;
 	border: 3px solid #aaa;
@@ -358,3 +366,5 @@ table th[class*="col-"] {
 .pending-reject:hover {
 	background-color: #feb59f;
 }
+
+/* @end */
