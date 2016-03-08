@@ -22,6 +22,7 @@
 		    	<h1 class="entry-title">
 		    	<?php 
 		    		// Show the speaker name
+		    		echo '<span class="talk-title-speakers">';
 		    		
 		    		echo get_post_meta( $id, 'lgm_speaker_firstname', true );
 		    		echo '';
@@ -37,9 +38,12 @@
 		    		
 		    		}
 		    	
-		    		echo ' : ';	
-		    	 
-		    	  the_title(); ?>
+		    		echo ' :</span><br/>';	
+		    	 	echo '<span class="talk-title">';
+		    	  the_title(); 
+		    	  echo '</span>';
+		    	  
+		    	  ?>
 		    	</h1>
 		    </header><!-- .entry-header -->
 		    <?php

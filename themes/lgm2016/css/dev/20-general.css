@@ -109,11 +109,19 @@ a {
 	
 }
 
+/* @group Single Talk Page */
+
+.talk-title-speakers {
+	font-size: 80%;
+	line-height: 1.5;
+}
 
 .biography {
 	margin-top: 2em;
 	font-style: italic;	
 }
+
+/* @end */
 
 /* @group Tables */
 
