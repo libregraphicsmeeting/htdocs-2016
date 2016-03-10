@@ -83,40 +83,15 @@ function getScheduleSlot($day, $time) {
     return $result;
 }
 
-if ($custom_query->have_posts()) {
+include(get_stylesheet_directory().'/page-schedule-class.php');
+$pageSchedule = new LGMPageSchedule();
 
-    while( $custom_query->have_posts() ) {
-        $custom_query->the_post();
-        $item = array();
-        $startMeta = get_post_meta( $id, '_mem_start_date', true);
-
-        if ($startMeta) {
-            $startDate = new DateTime($startMeta);
-            $startTime = $startDate->format('H:i');
-            $startDay = $startDate->format('d');
-            $endMeta = get_post_meta( $id, '_mem_end_date', true);
-            $duration = 20;
-            if ($endMeta) {
-                $endDate = new DateTime($endMeta);
-                $diff = $startDate->diff($endDate);
-                // echo("<pre>".print_r($diff, 1)."</pre>");
-                $duration = ($diff->h * 60) + $diff->i;
-            }
-            $item = [
-                "id" => get_the_ID(),
-                "title" => get_the_title(),
-                "firstname" => get_post_meta( $id, 'lgm_speaker_firstname', true ),
-                "lastname" => get_post_meta( $id, 'lgm_speaker_lastname', true ),
-                "day" => $startDay,
-                "time" => $startTime,
-                "duration" => $duration,
-            ];
-            $slot = getScheduleSlot($startDay, $startTime);
-            $schedule[$startDay][$slot][] = $item;
-        }
+while ($item = $pageSchedule->next()) {
+    if ($item['time']) {
+        $slot = getScheduleSlot($item['day'], $item['time']);
+        $schedule[$item['day']][$slot][] = $item;
     }
 }
-
 // echo("<pre>".print_r($schedule, 1)."</pre>");
 // die();
 
@@ -251,7 +226,7 @@ if ($custom_query->have_posts()) {
                 <?php endfor; ?>
             </div>
         </div>
-		<div id="popup" style="display:none;height:300px;width:500px;position:absolute; border:3px solid green;">Hi</div>
+		<div id="popup" style="display:none;height:300px;width:500px;position:absolute; border:3px solid green; background-color:white;"></div>
 		<script>
 		(function($) {
 			$(document).ready(function() {
@@ -266,7 +241,7 @@ if ($custom_query->have_posts()) {
                             "post-id": id
                         },
                         function() {
-                            alert( "Load "+id+" was performed." );
+                            // alert( "Load "+id+" was performed." );
                         }
                     );
 
