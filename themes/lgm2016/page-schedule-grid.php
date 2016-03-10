@@ -210,7 +210,7 @@ if ($custom_query->have_posts()) {
             height: <?= cssSH(2) ?>px; /* 2'00 */
         }
         /*
-        .schedule .day-18 .slot-600 li {
+        .schedule .day-18 .slot-600 {
             -webkit-transform: rotate(-90deg);
             -moz-transform: rotate(-90deg);
             -ms-transform: rotate(-90deg);
@@ -243,7 +243,7 @@ if ($custom_query->have_posts()) {
                 <ul class="slot slot-<?= $time_slot[$i][$j] ?>">
                 <?php foreach($slot as $item) : ?>
                 <?php // TODO: add a popup with details (https://gist.github.com/sniperwolf/5652986) ?>
-                <li><?= sprintf('%s (%s): %s', $item['time'], $item['duration'], $item['title']) ?></li>
+                <li data-post-id="<?= $item['id'] ?>"><?= sprintf('%s (%s): %s', $item['time'], $item['duration'], $item['title']) ?></li>
                 <?php endforeach; ?>
                 </ul>
                 <?php endforeach; ?>
@@ -251,4 +251,33 @@ if ($custom_query->have_posts()) {
                 <?php endfor; ?>
             </div>
         </div>
+		<div id="popup" style="display:none;height:300px;width:500px;position:absolute; border:3px solid green;">Hi</div>
+		<script>
+		(function($) {
+			$(document).ready(function() {
+				$('ul.slot li').bind('click', function (event) {
+                    console.log(event);
+
+                    var id = jQuery(this).attr('data-post-id');
+                    $( "#popup" ).load(
+                        "<?php echo admin_url('admin-ajax.php'); ?>",
+                        {
+                            action: 'lgm_get_talk_detail',
+                            "post-id": id
+                        },
+                        function() {
+                            alert( "Load "+id+" was performed." );
+                        }
+                    );
+
+                    // TODO: add a transparent filling div below popup for closing on click
+                    // TODO: only place to left,top if the full div fits on screen
+					$('#popup').css('left',$(this).position().left);
+					$('#popup').css('top',$(this).position().top);
+					$('#popup').css('display','inline');     
+					$("#popup").css("position", "absolute");  // <<< also make it absolute!
+				});
+			});
+		}(jQuery));
+		</script>
 <?php include(get_stylesheet_directory().'/footer.php') ?>

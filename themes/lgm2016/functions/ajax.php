@@ -127,4 +127,12 @@ add_action('init', function () {
         )); // die
     }
 
+    add_action('wp_ajax_lgm_get_talk_detail', 'lgm_get_talk_detail');
+    add_action('wp_ajax_nopriv_lgm_get_talk_detail', 'lgm_get_talk_detail');
+
+
+    function lgm_get_talk_detail() {
+        echo "<p>here are details</p>";
+    }
+
 });
