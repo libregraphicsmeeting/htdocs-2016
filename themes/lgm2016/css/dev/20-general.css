@@ -18,7 +18,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#12a16d', end
 }
 
 html {
-	background-image: url('http://libregraphicsmeeting.org/2016/wp/wp-content/design/website/background/GIMP-glitch-background-v3.jpg');
+	background-image: url('//libregraphicsmeeting.org/2016/wp/wp-content/design/website/background/GIMP-glitch-background-v3.jpg');
 	background-size: 100% auto;
 }
 
@@ -26,7 +26,7 @@ body {
 /*	background: none;
 	background-size: cover;*/
 
-	background-image: url('http://libregraphicsmeeting.org/2016/wp/wp-content/design/website/background/GIMP-glitch-background-v2.jpg');
+	background-image: url('//libregraphicsmeeting.org/2016/wp/wp-content/design/website/background/GIMP-glitch-background-v2.jpg');
 	background-size: 100% auto;
 	background-attachment: fixed;
 }
@@ -59,7 +59,7 @@ a {
 .site-banner {
 	background-color: transparent;
 	padding-top: 300px;
-	background-image: url('http://libregraphicsmeeting.org/2016/wp/wp-content/design/website/banner/Webbanner.png');
+	background-image: url('//libregraphicsmeeting.org/2016/wp/wp-content/design/website/banner/Webbanner.png');
 	background-size: 100% auto;
 	padding-top: 28%;
 }
