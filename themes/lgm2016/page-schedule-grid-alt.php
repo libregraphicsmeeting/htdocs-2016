@@ -127,6 +127,21 @@ if ($custom_query->have_posts()) {
 ?>
         <style>
         
+        html {
+        	background-image: none;
+        	background: #12a16d; /* Old browsers */
+        	background: -moz-linear-gradient(-45deg,  #12a16d 0%, #e238c7 100%); /* FF3.6-15 */
+        	background: -webkit-linear-gradient(-45deg,  #12a16d 0%,#e238c7 100%); /* Chrome10-25,Safari5.1-6 */
+        	background: linear-gradient(135deg,  #12a16d 0%,#e238c7 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#12a16d', endColorstr='#e238c7',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        }
+        body {
+        	background: none;
+        	background-image: none;
+        }
+        
+        
+        
                <?php function cssSH($h, $m = 0) { return 80*$h + (80/60*$m);} ?>
         
 
