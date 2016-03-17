@@ -113,7 +113,7 @@ if ($custom_query->have_posts()) {
                 "day" => $startDay,
                 "time" => $startTime,
                 "duration" => $duration,
-                "content" => get_the_content(),
+                "content" => wp_strip_all_tags( get_the_content() ),
                 "additional" => get_post_meta( $id, 'lgm_additional_speakers', true )
             ];
             $slot = getScheduleSlot($startDay, $startTime);
@@ -174,7 +174,7 @@ if ($custom_query->have_posts()) {
 			                	<div class="item-time"><?= $item['time'] ?></div>
 			                	<div class="item-content">
 			                		<?php if ( !empty( $item['firstname'] ) ) { ?>
-					                		<h3 class="item-presenter din"><?php 
+					                		<h3 class="item-presenter din toggle item-closed"><?php 
 					                			echo $item['firstname'].' '; 
 					                			echo $item['lastname'];
 					                			
@@ -183,19 +183,19 @@ if ($custom_query->have_posts()) {
 					                			}
 					                		 
 					                		 ?></h3>
-					                		 <p class="item-title"><?= $item['title'] ?></p>
+					                		 <p class="item-title toggle item-closed"><?= $item['title'] ?></p>
 					                <?php } else {
 					                		?>
-					                		<h3 class="item-presenter item-title-break din"><?php 
+					                		<h3 class="item-presenter item-title-break din toggle item-closed"><?php 
 					                			echo $item['title'];
 					                		?></h3><?php
 					                }
 					                
 					                	if ( $item['content'] != '' ) {
 					                		?>
-					                		<p class="item-content hidden">
+					                		<div class="item-description js-hidden hidden">
 					                			<?= $item['content'] ?>
-					                		</p>
+					                		</div>
 					                	<?php
 					                	}
 					                
@@ -212,7 +212,32 @@ if ($custom_query->have_posts()) {
                 <?php endfor; ?>
             </div>
         </div>
-		<div id="popup" style="display:none;height:300px;width:500px;position:absolute; border:3px solid green;">Hi</div>
-		
+		<script type="text/javascript">
+			jQuery(document).ready(function($){	
+							
+							// show description
+							$( ".item-content" ).on( "click", ".item-closed", function() {
+							  console.log( $( this ).text() );
+							  $(this).addClass("item-open");
+							  	$(this).siblings(".item-closed").addClass("item-open");
+							  $(this).removeClass("item-closed");
+							  	$(this).siblings(".item-closed").removeClass("item-closed");
+							  $(this).parent().find(".item-description").show();
+							});
+							
+							// show description
+							$( ".item-content" ).on( "click", ".item-open", function() {
+							  console.log( $( this ).text() );
+							  $(this).addClass("item-closed");
+							  	$(this).siblings(".item-open").addClass("item-closed");
+							  $(this).removeClass("item-open");
+							  	$(this).siblings(".item-open").removeClass("item-open");
+							  $(this).parent().find(".item-description").hide();
+							});
+							
+							// hide description
+							
+			}); 
+		</script>
 		
 <?php get_footer(); ?>

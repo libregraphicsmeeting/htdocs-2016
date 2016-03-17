@@ -7,7 +7,7 @@
 }
 
 .schedule .day-title {
-	text-align: right;
+	text-align: center;
 	text-transform: uppercase;
 	padding-bottom: 1em;
 	border-bottom: 1px solid #fff;
@@ -56,17 +56,17 @@
 }
 
 .schedule .dur-20 {
-	height: 6em;
+	min-height: 6em;
 /*	border: 1px solid red;*/
 }
 
 .schedule .dur-40 {
-	height: 12em;
+	min-height: 12em;
 /*	border: 1px solid red;*/
 }
 
 .schedule .dur-60 {
-	height: 18em;
+	min-height: 18em;
 /*	border: 1px solid red;*/
 }
 
@@ -75,6 +75,14 @@
 	line-height: 1.1;
 	margin-top: 0.5em;
 	font-size: 80%;
+	
+}
+
+.slot li .item-time {
+	color: #ccc;
+}
+.slot li:first-of-type .item-time {
+	color: #000;
 }
 
 .item-content {
@@ -95,14 +103,29 @@
 	background-color: #e238c7;
 }
 
-.item-title {
-	line-height: 1.1;
+.item-title,
+.item-description {
+	line-height: 1.4;
 	font-size: 80%;
 	/*white-space: nowrap;
 	overflow: hidden;
 	*/
-	text-overflow: ellipsis;
-	width: 100%;
+}
+
+.item-description {
+	margin-bottom: 1em;
+}
+
+.item-open.item-title {
+	margin-bottom: 0.5em;
+}
+
+.item-closed {
+	cursor: zoom-in;	
+}
+
+.item-open {
+	cursor: zoom-out;	
 }
 
 
