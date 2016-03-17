@@ -25,7 +25,7 @@
 		    		echo '<span class="talk-title-speakers">';
 		    		
 		    		echo get_post_meta( $id, 'lgm_speaker_firstname', true );
-		    		echo '';
+		    		echo ' ';
 		    		echo get_post_meta( $id, 'lgm_speaker_lastname', true );
 		    		
 		    		// Show additional speakers:
