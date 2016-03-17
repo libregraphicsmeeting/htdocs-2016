@@ -52,3 +52,14 @@ publish
 script-ck.js
 codekit-config.json
 twentysixteen
+backup*
+plugins/adv*
+plugins/akismet/
+plugins/formi*
+plugins/minim*
+plugins/wp-native*
+plugins/wysija*
+uploads
+plugins/index.php
+plugins/hello.php
+plugins/wp-sync*
