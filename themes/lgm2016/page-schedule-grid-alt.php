@@ -113,6 +113,7 @@ if ($custom_query->have_posts()) {
                 "day" => $startDay,
                 "time" => $startTime,
                 "duration" => $duration,
+                "content" => get_the_content(),
                 "additional" => get_post_meta( $id, 'lgm_additional_speakers', true )
             ];
             $slot = getScheduleSlot($startDay, $startTime);
@@ -140,16 +141,15 @@ if ($custom_query->have_posts()) {
         	background-image: none;
         }
         
-        
-        
-               <?php function cssSH($h, $m = 0) { return 80*$h + (80/60*$m);} ?>
-        
-
         </style>
     	<div id='wrap'>
-            <h1>The schedule draft</h1>
+    	
+    				<header class="entry-header">
+            <h1 class="entry-title">The schedule draft</h1>
+            </header>
+            
             <div class="schedule">
-                
+            
                 <?php for ($i = 15; $i <= 18; $i++) : ?>
                 <div class="day day-<?= $i ?>">
                 <h2 class="day-title din">
@@ -183,8 +183,24 @@ if ($custom_query->have_posts()) {
 					                			}
 					                		 
 					                		 ?></h3>
-					                <?php } ?>
-			                		 <p class="item-title"><?= $item['title'] ?></p>
+					                		 <p class="item-title"><?= $item['title'] ?></p>
+					                <?php } else {
+					                		?>
+					                		<h3 class="item-presenter item-title-break din"><?php 
+					                			echo $item['title'];
+					                		?></h3><?php
+					                }
+					                
+					                	if ( $item['content'] != '' ) {
+					                		?>
+					                		<p class="item-content hidden">
+					                			<?= $item['content'] ?>
+					                		</p>
+					                	<?php
+					                	}
+					                
+					                ?>
+			                		 
 			                	</div>
 			                	
 			                </li>
