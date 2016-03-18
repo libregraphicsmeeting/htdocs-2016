@@ -1,0 +1,132 @@
+.schedule {
+/*    background-color:	lightgray;*/
+    font-size: 80%;
+    padding: 1em;
+/*    border: 2px solid blue;*/
+    width: 100%;
+}
+
+.schedule .day-title {
+	text-align: center;
+	text-transform: uppercase;
+	padding-bottom: 1em;
+	border-bottom: 1px solid #fff;
+}
+
+.schedule .day-span {
+	font-size: 120%;
+}
+
+.schedule  .hidden {
+	display: none;
+}
+
+.day-title sup {
+	font-size: 0.6em;
+}
+
+
+@media screen and (min-width: 44.375em) {
+	
+	.schedule {
+		padding: 0;
+	}
+	
+	.schedule .day {
+	    width: 25%;
+	    float: left;
+	}
+	
+	.schedule .day-15 ul.slot-660 li:first-of-type {
+		margin-top: 18em;
+	}
+	
+}
+
+
+.schedule .slot {
+    margin-bottom: 1em;
+    border: 0px solid #ddd;
+}
+
+.schedule ul.slot {
+    list-style-type: none;
+    padding:0;
+    margin:0;
+}
+
+.schedule .dur-20 {
+	min-height: 6em;
+/*	border: 1px solid red;*/
+}
+
+.schedule .dur-40 {
+	min-height: 12em;
+/*	border: 1px solid red;*/
+}
+
+.schedule .dur-60 {
+	min-height: 18em;
+/*	border: 1px solid red;*/
+}
+
+.item-time {
+	float: left;
+	line-height: 1.1;
+	margin-top: 0.5em;
+	font-size: 80%;
+	
+}
+
+.slot li .item-time {
+	color: #ccc;
+}
+.slot li:first-of-type .item-time {
+	color: #000;
+}
+
+.item-content {
+	padding-left: 2.6em;
+	padding-right: 0.5em;
+}
+
+.item-presenter {
+	clear: none;
+	line-height: 1.1;
+	background-color: #12a16d;
+	color: #fff;
+	padding: 0.2em 0.4em;
+	margin-bottom: 0.5em;
+}
+
+.item-title-break {
+	background-color: #e238c7;
+}
+
+.item-title,
+.item-description {
+	line-height: 1.4;
+	font-size: 80%;
+	/*white-space: nowrap;
+	overflow: hidden;
+	*/
+}
+
+.item-description {
+	margin-bottom: 1em;
+}
+
+.item-open.item-title {
+	margin-bottom: 0.5em;
+}
+
+.item-closed {
+	cursor: zoom-in;	
+}
+
+.item-open {
+	cursor: zoom-out;	
+}
+
+
+

@@ -2,7 +2,7 @@
 
 The Talk content type is created by our custom plugin, [with those functions](https://github.com/libregraphicsmeeting/htdocs-2016/blob/master/plugins/lgm-talks-2016/lgm-custom-post-types.php).
 
-### Taxonomies
+### Taxonomies
 
 The following taxonomies are available:
 
