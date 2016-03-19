@@ -132,7 +132,22 @@ add_action('init', function () {
 
 
     function lgm_get_talk_detail() {
-        echo "<p>here are details</p>";
+        $result = [];
+        if (array_key_exists('post-id', $_POST) && $_POST['post-id']) {
+            include(get_stylesheet_directory().'/page-schedule-class.php');
+            $pageSchedule = new LGMPageSchedule();
+            if ($talk = $pageSchedule->getTalk($_POST['post-id'])) {
+                $result = [];
+                $result[] = "<div class=\"talk\">";
+                $result[] = "<h2>".$talk['title']."</h2>";
+                $result[] = "<h3>".$talk['speakers']."</h3>";
+                $result[] = "<p class=\"time\">".sprintf("%s (%s')", $talk['time'], $talk['duration'])."</p>";
+                $result[] = '<p class="details-link"><a href="'.$talk['url'].'">Details...</a></p>';
+                $result[] = "</div>";
+            }
+        }
+        echo (empty($result) ? "<p>Talk not found.</p>" : implode("\n", $result));
+        wp_die();
     }
 
 });
