@@ -10,6 +10,7 @@ $pageSchedule = new LGMPageSchedule();
 <?php include(get_stylesheet_directory().'/header.php') ?>
 
     	<div id='wrap'>
+            <?= /* "<pre>".print_r($pageSchedule->getTalk(404), 1)."</pre>" */ ""  ?>
             <h1>The schedule draft</h1>
 
             <?php
@@ -22,7 +23,7 @@ $pageSchedule = new LGMPageSchedule();
             <div class="talk">
                 <h2><?= $item['title'] ?></h2>
                 <?php if ($item['lastname'] != '') : ?>
-                <h3><?= implode(', ', array_filter([$item['firstname'].' '.$item['lastname'], $item['speaker-additional']])) ?></h3>
+                <h3><?= $item['speakers'] ?></h3>
                 <?php endif; ?>
                 <p class="time"><?= sprintf("%s (%s')", $item['time'], $item['duration']) ?></p>
                 <?= $item['content'] ?>
