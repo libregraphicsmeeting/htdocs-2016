@@ -24,6 +24,7 @@ class LGMPageSchedule {
                 'title' => $post['post_title'],
                 'content' => $this->getContent($post['post_content']),
                 'url' => ($post['post_name'] ? get_site_url().'/talk/'.$post['post_name'] : $post['guid']),
+                'timestamp' => get_the_modified_time(),
             ];
             $result += $this->getMetaFields($post['ID']);
         }
@@ -53,7 +54,10 @@ class LGMPageSchedule {
         $startTime = '';
         $duration = 0;
         $startMeta = get_post_meta( $id, '_mem_start_date', true);
+        $startDatetime = '';
+        $endDatetime = '';
         if ($startMeta) {
+            $startDatetime = $startMeta;
             $startDate = new DateTime($startMeta);
             $startTime = $startDate->format('H:i');
             $startDay = $startDate->format('d');
@@ -61,10 +65,13 @@ class LGMPageSchedule {
             $endMeta = get_post_meta( $id, '_mem_end_date', true);
             $duration = 20;
             if ($endMeta) {
+                $endDatetime = $endMeta;
                 $endDate = new DateTime($endMeta);
                 $diff = $startDate->diff($endDate);
                 // echo("<pre>".print_r($diff, 1)."</pre>");
                 $duration = ($diff->h * 60) + $diff->i;
+            } else {
+                $endDatetime = $startDate->add(new DateInterval('PT20M'))->format('Y-m-d H:i:s');
             }
         }
 
@@ -76,6 +83,8 @@ class LGMPageSchedule {
             'weekday' => $weekday,
             'time' => $startTime,
             'duration' => $duration,
+            'start' => $startDatetime,
+            'end' => $endDatetime,
         ];
         $result['speakers'] = implode(', ', array_filter([$result['firstname'].' '.$result['lastname'], $result['speaker-additional']]));
         return $result;
@@ -100,6 +109,7 @@ class LGMPageSchedule {
                 'title' => get_the_title(),
                 'content' => $this->getContent(),
                 'url' => get_permalink(),
+                'timestamp' => date('Y-m-d H:i:s', get_the_modified_time('U')),
             ];
 
             $result += $this->getMetaFields($id);
