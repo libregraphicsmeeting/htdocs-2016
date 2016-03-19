@@ -56,26 +56,8 @@ END:VEVENT
     }
 }
 
-// foreach ($calendar->get() as $item) {
-    // Aoloe\debug('item', $item);
-    /*
-    $event[] = array (
-        'start' => lgmGetIcsDateFromIso($item['date'].' '.$item['start']),
-        'end' => $this->lgmGetIcsDateFromIso($item['date'].' '.$item['end']),
-        'id' => uniqid(), // TODO: really? shouldn't it be always the same id for the same item? use a hash of item?
-        'id' => base64_encode($item['date'].$item['title']).'@bc-oberurdorf.ch',
-        'timestamp' => $this->get_ics_date_from_iso($calendar->get_modification_date()),
-        'location' => $this->lgmGetIcsStringEscaped($item['location']),
-        'description' => $this->lgmGetIcsStringEscaped(empty($item['description']) ? $item['title'] : $item['description']),
-        'url' => 'http://bc-oberurdorf.ch/programm', // TOOO: or something else?
-        'summary' => $this->lgmGetIcsStringEscaped(striptags($item['title'])),
-    );
-    */
-// }
-// Aoloe\debug('event', $event);
-
 header('Content-type: text/calendar; charset=utf-8');
-header('Content-Disposition: attachment; filename=' . 'libregraphicsmeeting-2016.ics');
+header('Content-Disposition: attachment; filename=' . 'schedule.ics');
 
 $content =  strtr(
     "BEGIN:VCALENDAR
