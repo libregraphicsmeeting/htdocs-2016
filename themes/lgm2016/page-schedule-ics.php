@@ -74,8 +74,8 @@ END:VEVENT
 // }
 // Aoloe\debug('event', $event);
 
-// header('Content-type: text/calendar; charset=utf-8');
-// header('Content-Disposition: attachment; filename=' . 'bc-oberurdorf.ics');
+header('Content-type: text/calendar; charset=utf-8');
+header('Content-Disposition: attachment; filename=' . 'libregraphicsmeeting-2016.ics');
 
 $content =  strtr(
     "BEGIN:VCALENDAR
