@@ -58,9 +58,9 @@ if (is_user_logged_in() || (false === ($custom_query = get_transient('page_sched
       'meta_key' => '_mem_start_date',
       'order' => 'ASC',
     ));
-      	     	 	
+
     set_transient('lgm16_schedule_grid', $custom_query, 12 * HOUR_IN_SECONDS);
-} 
+}
 
 $schedule = [
 ];
@@ -127,7 +127,7 @@ if ($custom_query->have_posts()) {
 
 ?>
         <style>
-        
+
         html {
         	background-image: none;
         	background: #12a16d; /* Old browsers */
@@ -140,20 +140,20 @@ if ($custom_query->have_posts()) {
         	background: none;
         	background-image: none;
         }
-        
+
         </style>
     	<div id='wrap'>
-    	
+
     				<header class="entry-header">
-            <h1 class="entry-title">The schedule draft</h1>
+            <h1 class="entry-title">LGM 2016 Programme</h1>
             </header>
-            
+
             <div class="schedule">
-            
+
                 <?php for ($i = 15; $i <= 18; $i++) : ?>
                 <div class="day day-<?= $i ?>">
                 <h2 class="day-title din">
-                <?php 
+                <?php
                 	if ( $i == 15 ) {
                 		echo '<span class="day-span">Friday</span> <span class="month-span">15<sup>th</sup> April</span>';
                 	} else if ( $i == 16 ) {
@@ -169,28 +169,28 @@ if ($custom_query->have_posts()) {
 	                <ul class="slot slot-<?= $time_slot[$i][$j] ?>">
 		                <?php foreach($slot as $item) : ?>
 		                <?php // TODO: add a popup with details (https://gist.github.com/sniperwolf/5652986) ?>
-		                
+
 			                <li data-post-id="<?= $item['id'] ?>" class="dur-<?= $item['duration'] ?>">
 			                	<div class="item-time"><?= $item['time'] ?></div>
 			                	<div class="item-content">
 			                		<?php if ( !empty( $item['firstname'] ) ) { ?>
-					                		<h3 class="item-presenter din toggle item-closed"><?php 
-					                			echo $item['firstname'].' '; 
+					                		<h3 class="item-presenter din toggle item-closed"><?php
+					                			echo $item['firstname'].' ';
 					                			echo $item['lastname'];
-					                			
+
 					                			if ( $item['additional'] != '' ) {
 					                				echo ', '.$item['additional'];
 					                			}
-					                		 
+
 					                		 ?></h3>
 					                		 <p class="item-title toggle item-closed"><?= $item['title'] ?></p>
 					                <?php } else {
 					                		?>
-					                		<h3 class="item-presenter item-title-break din toggle item-closed"><?php 
+					                		<h3 class="item-presenter item-title-break din toggle item-closed"><?php
 					                			echo $item['title'];
 					                		?></h3><?php
 					                }
-					                
+
 					                	if ( $item['content'] != '' ) {
 					                		?>
 					                		<div class="item-description js-hidden hidden">
@@ -198,13 +198,13 @@ if ($custom_query->have_posts()) {
 					                		</div>
 					                	<?php
 					                	}
-					                
+
 					                ?>
-			                		 
+
 			                	</div>
-			                	
+
 			                </li>
-		                
+
 		                <?php endforeach; ?>
 	                </ul>
 	                <?php endforeach; ?>
@@ -213,8 +213,8 @@ if ($custom_query->have_posts()) {
             </div>
         </div>
 		<script type="text/javascript">
-			jQuery(document).ready(function($){	
-							
+			jQuery(document).ready(function($){
+
 							// show description
 							$( ".item-content" ).on( "click", ".item-closed", function() {
 							  console.log( $( this ).text() );
@@ -224,7 +224,7 @@ if ($custom_query->have_posts()) {
 							  	$(this).siblings(".item-closed").removeClass("item-closed");
 							  $(this).parent().find(".item-description").show();
 							});
-							
+
 							// show description
 							$( ".item-content" ).on( "click", ".item-open", function() {
 							  console.log( $( this ).text() );
@@ -234,10 +234,10 @@ if ($custom_query->have_posts()) {
 							  	$(this).siblings(".item-open").removeClass("item-open");
 							  $(this).parent().find(".item-description").hide();
 							});
-							
+
 							// hide description
-							
-			}); 
+
+			});
 		</script>
-		
+
 <?php get_footer(); ?>

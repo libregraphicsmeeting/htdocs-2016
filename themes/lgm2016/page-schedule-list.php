@@ -11,7 +11,7 @@ $pageSchedule = new LGMPageSchedule();
 
     	<div id='wrap'>
             <?= /* "<pre>".print_r($pageSchedule->getTalk(404), 1)."</pre>" */ ""  ?>
-            <h1>The schedule draft</h1>
+            <h1>LGM 2016 Programme</h1>
 
             <?php
             $currentDay = '';
