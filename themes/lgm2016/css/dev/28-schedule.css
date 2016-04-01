@@ -79,7 +79,7 @@
 }
 
 .slot li .item-time {
-	color: #ccc;
+	color: #000;
 }
 .slot li:first-of-type .item-time {
 	color: #000;
