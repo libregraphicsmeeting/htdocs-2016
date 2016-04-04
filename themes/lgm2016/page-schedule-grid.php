@@ -1,4 +1,7 @@
 <?php
+
+$pageTitle = get_the_title();
+
 /**
  * Template for building the schedule
  */
@@ -203,7 +206,7 @@ while ($item = $pageSchedule->next()) {
         }
         </style>
     	<div id='wrap'>
-            <h1>The schedule draft</h1>
+            <h1><?= $pageTitle ?></h1>
             <div class="schedule">
                 <div class="day time">
                     <ul>

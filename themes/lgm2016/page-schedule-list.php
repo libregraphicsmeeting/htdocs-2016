@@ -1,4 +1,7 @@
 <?php
+
+$pageTitle = get_the_title();
+
 include(get_stylesheet_directory().'/page-schedule-class.php');
 $pageSchedule = new LGMPageSchedule();
 ?>
@@ -11,7 +14,7 @@ $pageSchedule = new LGMPageSchedule();
 
     	<div id='wrap'>
             <?= /* "<pre>".print_r($pageSchedule->getTalk(404), 1)."</pre>" */ ""  ?>
-            <h1>LGM 2016 Programme</h1>
+            <h1><?= $pageTitle ?></h1>
 
             <?php
             $currentDay = '';

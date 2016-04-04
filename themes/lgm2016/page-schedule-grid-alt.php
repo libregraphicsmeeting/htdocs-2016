@@ -3,6 +3,8 @@
  * Template for building the schedule
  */
 
+$pageTitle = get_the_title();
+
 get_header();
 
 $time = [
@@ -145,7 +147,7 @@ if ($custom_query->have_posts()) {
     	<div id='wrap'>
 
     				<header class="entry-header">
-            <h1 class="entry-title">LGM 2016 Programme</h1>
+            <h1 class="entry-title"><?= $pageTitle ?></h1>
             </header>
 
             <div class="schedule">
