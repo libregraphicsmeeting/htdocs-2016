@@ -12,6 +12,8 @@
 include(get_stylesheet_directory().'/page-schedule-class.php');
 $pageSchedule = new LGMPageSchedule();
 
+date_default_timezone_set('Europe/London');
+
 $list = [];
 while ($item = $pageSchedule->next()) {
     if ($item['time']) {
@@ -56,8 +58,11 @@ END:VEVENT
     }
 }
 
-header('Content-type: text/calendar; charset=utf-8');
-header('Content-Disposition: attachment; filename=' . 'schedule.ics');
+if ($_SERVER['REMOTE_ADDR'] != '2a02:1205:c6a2:4100:226:82ff:fe9d:8e25') {
+    // echo("<pre>".print_r($_SERVER, 1)."</pre>");
+    header('Content-type: text/calendar; charset=utf-8');
+    header('Content-Disposition: attachment; filename=' . 'schedule.ics');
+}
 
 $content =  strtr(
     "BEGIN:VCALENDAR
@@ -80,7 +85,7 @@ echo(str_replace("\n", "\r\n", $content));
 
 /** Converts an ISO date time to an ics-friendly format */
 function lgmGetIcsDateFromIso($isodate = null) {
-  return gmdate('Ymd\THis\Z', isset($isodate) ? strtotime($isodate) : time());
+  return gmdate('Ymd\THis\Z', isset($isodate) ? strtotime($isodate) : time()); // Z says that it's UTC... works ok with date_default_timezone_set() at the beginning of this script
 }
      
 /** @return string the string escaped for ICS files */
