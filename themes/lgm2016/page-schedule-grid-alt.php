@@ -116,6 +116,7 @@ if ($custom_query->have_posts()) {
                 "time" => $startTime,
                 "duration" => $duration,
                 "content" => wp_strip_all_tags( get_the_content() ),
+                "bio" => get_post_meta( $id, 'lgm_short_bio', true ),
                 "additional" => get_post_meta( $id, 'lgm_additional_speakers', true )
             ];
             $slot = getScheduleSlot($startDay, $startTime);
@@ -197,6 +198,14 @@ if ($custom_query->have_posts()) {
 					                		?>
 					                		<div class="item-description js-hidden hidden">
 					                			<?= $item['content'] ?>
+					                		</div>
+					                	<?php
+					                	}
+					                	
+					                	if ( $item['bio'] != '' ) {
+					                		?>
+					                		<div class="item-description item-bio js-hidden hidden">
+					                			<?= $item['bio'] ?>
 					                		</div>
 					                	<?php
 					                	}
