@@ -25,25 +25,6 @@
 	font-size: 0.6em;
 }
 
-
-@media screen and (min-width: 44.375em) {
-	
-	.schedule {
-		padding: 0;
-	}
-	
-	.schedule .day {
-	    width: 25%;
-	    float: left;
-	}
-	
-	.schedule .day-15 ul.slot-660 li:first-of-type {
-		margin-top: 18em;
-	}
-	
-}
-
-
 .schedule .slot {
     margin-bottom: 1em;
     border: 0px solid #ddd;
@@ -96,28 +77,40 @@
 	background-color: #12a16d;
 	color: #fff;
 	padding: 0.2em 0.4em;
-	margin-bottom: 0.5em;
+	margin-bottom: 0;
 }
 
 .item-title-break {
 	background-color: #e238c7;
 }
 
+.item-title {
+	padding-top: 0.5em;
+}
+
 .item-title,
 .item-description {
 	line-height: 1.4;
 	font-size: 80%;
+	
+	padding-top: 0.5em;
+	
 	/*white-space: nowrap;
 	overflow: hidden;
 	*/
 }
 
-.item-description {
-	margin-bottom: 1em;
+.item-title.item-open {
+	font-weight: bold;
+	margin-bottom: 0em;
 }
 
-.item-open.item-title {
-	margin-bottom: 0.5em;
+.item-bio {
+	font-style: italic;
+}
+
+.item-description:last-of-type {
+	margin-bottom: 1em;
 }
 
 .item-closed {
@@ -128,5 +121,21 @@
 	cursor: zoom-out;	
 }
 
+@media screen and (min-width: 44.375em) {
+	
+	.schedule {
+		padding: 0;
+	}
+	
+	.schedule .day {
+	    width: 25%;
+	    float: left;
+	}
+	
+	.schedule .day-15 ul.slot-660 li:first-of-type {
+		margin-top: 18em;
+	}
+	
+}
 
 
