@@ -171,13 +171,28 @@ if ($custom_query->have_posts()) {
 	                <?php foreach($schedule[$i] as $j => $slot) : ?>
 	                <ul class="slot slot-<?= $time_slot[$i][$j] ?>">
 		                <?php foreach($slot as $item) : ?>
-		                <?php // TODO: add a popup with details (https://gist.github.com/sniperwolf/5652986) ?>
+		                <?php // TODO: add a popup with details (https://gist.github.com/sniperwolf/5652986) 
+		                
+		                $toggle = '';
+		                
+		                if ( ( $item['content'] != '' ) || ( $item['bio'] != '' ) ) {
+		                	$toggle = ' toggle item-closed';
+		                }
+		                
+		                ?>
 
 			                <li data-post-id="<?= $item['id'] ?>" class="dur-<?= $item['duration'] ?>">
 			                	<div class="item-time"><?= $item['time'] ?></div>
 			                	<div class="item-content">
-			                		<?php if ( !empty( $item['firstname'] ) ) { ?>
-					                		<h3 class="item-presenter din toggle item-closed"><?php
+			                		<?php 
+			                		
+			                		/* Generate h3 title tag:
+			                		 * If the item has a presenter, we use the presenter name.			                		 
+			                		 * Else, we use the Title field.
+			                		*/
+			                		
+			                		if ( !empty( $item['firstname'] ) ) { ?>
+					                		<h3 class="item-presenter din <?= $toggle ?>"><?php
 					                			echo $item['firstname'].' ';
 					                			echo $item['lastname'];
 
@@ -186,10 +201,10 @@ if ($custom_query->have_posts()) {
 					                			}
 
 					                		 ?></h3>
-					                		 <p class="item-title toggle item-closed"><?= $item['title'] ?></p>
+					                		 <p class="item-title <?= $toggle ?>"><?= $item['title'] ?></p>
 					                <?php } else {
 					                		?>
-					                		<h3 class="item-presenter item-title-break din toggle item-closed"><?php
+					                		<h3 class="item-presenter item-title-break din <?= $toggle ?>"><?php
 					                			echo $item['title'];
 					                		?></h3><?php
 					                }
